@@ -30,7 +30,10 @@ public class User implements Serializable, UserDetails {
 
   private String cpf;
   private String name;
+
+  @Column(unique = true)
   private String email;
+
   private String password;
 
   @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
