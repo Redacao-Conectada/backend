@@ -1,5 +1,6 @@
 package com.rc.redacaoconectada.services;
 
+import com.rc.redacaoconectada.dtos.UserChangeDTO;
 import com.rc.redacaoconectada.dtos.UserDTO;
 import com.rc.redacaoconectada.dtos.UserInsertDTO;
 import com.rc.redacaoconectada.entities.Role;
@@ -64,5 +65,12 @@ public class UserService implements UserDetailsService {
       throw new UsernameNotFoundException("Email not found");
     }
     return user;
+  }
+
+  public UserDTO changeUserName(UserChangeDTO newUser) throws UsernameNotFoundException {
+
+    User u = repository.findByEmail(newUser.getEmail());
+
+
   }
 }
