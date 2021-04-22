@@ -46,12 +46,12 @@ public class EssayController {
     }
 
     @PostMapping
-    public ResponseEntity<EssayDTO> insert(@Valid @RequestBody EssayDTO essay) {
+    public ResponseEntity<EssayDTO> insert(@Valid @RequestBody EssayDTO essayDTO) {
 
-        EssayDTO dto = service.insert(essay);
+        EssayDTO dto = service.insert(essayDTO);
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(essay.getId()).toUri();
+                .buildAndExpand(essayDTO.getId()).toUri();
 
         return ResponseEntity.created(uri).body(dto);
     }
@@ -64,5 +64,16 @@ public class EssayController {
 
         return ResponseEntity.noContent().build();
     }
+
+    @PutMapping
+    @RequestMapping(value = "/update/{id}")
+    public ResponseEntity<EssayDTO> insert(@PathVariable("id") Long id, @RequestBody EssayDTO essayDTO) {
+
+        EssayDTO dto = service.update(id, essayDTO);
+
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(essayDTO.getId()).toUri();
+
+        return ResponseEntity.created(uri).body(dto);    }
 
 }

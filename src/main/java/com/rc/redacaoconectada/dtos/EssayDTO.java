@@ -1,12 +1,10 @@
 package com.rc.redacaoconectada.dtos;
 
 import com.rc.redacaoconectada.entities.Essay;
-import com.rc.redacaoconectada.services.validation.UserInsertValid;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 @Data
@@ -18,6 +16,7 @@ public class EssayDTO implements Serializable {
     private Long id;
 
     private Integer upVote;
+
     private String body;
 
     public EssayDTO(Essay essay) {

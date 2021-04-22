@@ -22,4 +22,9 @@ public class EssayMapper {
         }
     }
 
+    public static void mapsEssayDTOtoEssay(EssayDTO essayDTO, Essay essay) {
+        essay.setUpVote(essayDTO.getUpVote());
+        essay.setBody(essayDTO.getBody());
+    }
+
 }
