@@ -55,7 +55,7 @@ public class EssayController {
         EssayDTO dto = service.insert(essayInsetDTO);
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(essayInsetDTO.getId()).toUri();
+                .buildAndExpand(dto.getId()).toUri();
 
         return ResponseEntity.created(uri).body(dto);
     }

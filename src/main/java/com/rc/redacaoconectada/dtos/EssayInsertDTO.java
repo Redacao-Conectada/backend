@@ -12,9 +12,6 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class EssayInsertDTO implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    private Long id;
-
     @NotNull(message = "IdUser requerido")
     private Long idUser;
 
@@ -25,7 +22,6 @@ public class EssayInsertDTO implements Serializable {
     private String body;
 
     public EssayInsertDTO(Essay essay) {
-        this.id = essay.getId();
         this.idUser = essay.getUser().getId();
         this.upVote = essay.getUpVote();
         this.body = essay.getBody();
