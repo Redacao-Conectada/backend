@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
@@ -25,10 +24,9 @@ public class Essay implements Serializable {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @NotNull
     private Integer upVote;
 
-    @NotNull
+    @Column(columnDefinition = "TEXT")
     private String body;
 
 }

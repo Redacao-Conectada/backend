@@ -13,7 +13,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "/essays")
@@ -70,7 +69,7 @@ public class EssayController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<EssayDTO> update(@PathVariable("id") Long id, @RequestBody EssayInsertDTO essayInsertDTO) {
+    public ResponseEntity<EssayDTO> update(@PathVariable("id") Long id, @Valid @RequestBody EssayInsertDTO essayInsertDTO) {
 
         EssayDTO dto = service.update(id, essayInsertDTO);
 

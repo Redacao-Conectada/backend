@@ -1,7 +1,6 @@
 package com.rc.redacaoconectada.dtos;
 
 import com.rc.redacaoconectada.entities.Essay;
-import com.rc.redacaoconectada.entities.User;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
