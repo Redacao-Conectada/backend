@@ -7,14 +7,19 @@ import com.rc.redacaoconectada.entities.Student;
 import com.rc.redacaoconectada.entities.User;
 import com.rc.redacaoconectada.repositories.RoleRepository;
 import com.rc.redacaoconectada.repositories.UserRepository;
+import com.rc.redacaoconectada.services.exceptions.ResourceNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -53,6 +58,20 @@ public class UserService implements UserDetailsService {
     Role role = roleRepository.getOne(1L);
     student.getRoles().add(role);
   }
+
+  @Transactional(readOnly = true)
+  public Page<UserDTO> findAllPaged(PageRequest pagerequest){
+    Page<User> user = repository.findAll(pagerequest);
+    return user.map(UserDTO::new);
+  }
+
+  @Transactional(readOnly = true)
+  public UserDTO findById(Long id){
+    Optional<User> obj = repository.findById(id);
+    User user = obj.orElseThrow(() -> new ResourceNotFoundException("User Not Found!"));
+    return new UserDTO(user);
+  }
+
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
