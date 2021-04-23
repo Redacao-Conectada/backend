@@ -1,5 +1,7 @@
 package com.rc.redacaoconectada.controllers.exceptions;
 
+import com.rc.redacaoconectada.services.exceptions.DatabaseException;
+import com.rc.redacaoconectada.services.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -28,4 +30,23 @@ public class ResourceExceptionHandler {
 
     return ResponseEntity.status(status).body(err);
   }
+
+  private StandardError createStandardError(HttpStatus status, String error, String message, String requestUri){
+    return  new StandardError(Instant.now(), status.value(), error, message, requestUri);
+  }
+
+  @ExceptionHandler(ResourceNotFoundException.class)
+  public ResponseEntity<StandardError> entityNotFound(ResourceNotFoundException e, HttpServletRequest request) {
+    HttpStatus status = HttpStatus.NOT_FOUND;
+    StandardError err = createStandardError(status, e.getMessage(), "Resourse not found", request.getRequestURI());
+    return ResponseEntity.status(status).body(err);
+  }
+
+  @ExceptionHandler(DatabaseException.class)
+  public ResponseEntity<StandardError> integrityViolation(DatabaseException e, HttpServletRequest request) {
+    HttpStatus status = HttpStatus.BAD_REQUEST;
+    StandardError err = createStandardError(status, e.getMessage(), "Resourse not found", request.getRequestURI());
+    return ResponseEntity.status(status).body(err);
+  }
+
 }

@@ -18,3 +18,8 @@ INSERT INTO tb_user_role (user_id, role_id) VALUES (3, 1);
 INSERT INTO tb_student (id) VALUES (1);
 INSERT INTO tb_teacher (id, school_registration, school_name_as_teacher, proof_img) VALUES (2, '456543', 'Fera Colegio e Curso', 'https://www.evidenceexplained.com/system/files/user/user199/Proof-transparent%20canstockphoto12881592.jpg');
 INSERT INTO tb_admin (id) VALUES (1);
+
+-- Essays
+INSERT INTO tb_essay (user_id, up_vote, body) VALUES (1, 40, 'Redação é o processo de redigir (escrever) um texto.');
+INSERT INTO tb_essay (user_id, up_vote, body) VALUES (2, 50, 'Redação é o processo de redigir (escrever) um texto.');
+INSERT INTO tb_essay (user_id, up_vote, body) VALUES (3, 90, 'Redação é o processo de redigir (escrever) um texto.');
