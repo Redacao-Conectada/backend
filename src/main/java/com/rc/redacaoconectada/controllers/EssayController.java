@@ -1,8 +1,12 @@
 package com.rc.redacaoconectada.controllers;
 
 import com.rc.redacaoconectada.dtos.EssayDTO;
+import com.rc.redacaoconectada.dtos.EssayInsertDTO;
 import com.rc.redacaoconectada.services.EssayService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -19,16 +23,18 @@ public class EssayController {
     private EssayService service;
 
     @GetMapping
-    @RequestMapping(value = "/listAll")
-    public ResponseEntity<List<EssayDTO>> findAll() {
+    public ResponseEntity<Page<EssayDTO>> findAll(@RequestParam(value = "page", defaultValue = "0") Integer page,
+                                                  @RequestParam(value = "essayPerPage", defaultValue = "12") Integer essayPerPage,
+                                                  @RequestParam(value = "direction", defaultValue = "ASC") String direction,
+                                                  @RequestParam(value = "orderBy", defaultValue = "id") String id) {
 
-        List<EssayDTO> essaysdto = service.findAll();
+        PageRequest pageRequest = PageRequest.of(page, essayPerPage, Sort.Direction.valueOf(direction), id);
+        Page<EssayDTO> essaydto = service.findAll(pageRequest);
 
-        return ResponseEntity.ok().body(essaysdto);
+        return ResponseEntity.ok().body(essaydto);
     }
 
-    @GetMapping
-    @RequestMapping(value = "/search/{id}")
+    @GetMapping(value = "/{id}")
     public ResponseEntity<EssayDTO> findEssayById(@PathVariable("id") Long id) {
 
         EssayDTO essaydto = service.findEssayById(id);
@@ -36,8 +42,7 @@ public class EssayController {
         return ResponseEntity.ok().body(essaydto);
     }
 
-    @DeleteMapping
-    @RequestMapping(value = "/delete/{id}")
+    @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteEssayById(@PathVariable("id") Long id) {
 
         service.deleteEssayById(id);
@@ -46,34 +51,30 @@ public class EssayController {
     }
 
     @PostMapping
-    public ResponseEntity<EssayDTO> insert(@Valid @RequestBody EssayDTO essayDTO) {
+    public ResponseEntity<EssayDTO> insert(@Valid @RequestBody EssayInsertDTO essayInsetDTO) {
 
-        EssayDTO dto = service.insert(essayDTO);
+        EssayDTO dto = service.insert(essayInsetDTO);
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(essayDTO.getId()).toUri();
+                .buildAndExpand(essayInsetDTO.getId()).toUri();
 
         return ResponseEntity.created(uri).body(dto);
     }
 
-    @PutMapping
-    @RequestMapping(value = "/upvote/{id}")
-    public ResponseEntity<Void> insert(@PathVariable("id") Long id) {
+    @PutMapping(value = "/{id}/upvote")
+    public ResponseEntity<Void> upvote(@PathVariable("id") Long id) {
 
         service.upVoteEssay(id);
 
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping
-    @RequestMapping(value = "/update/{id}")
-    public ResponseEntity<EssayDTO> insert(@PathVariable("id") Long id, @RequestBody EssayDTO essayDTO) {
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<EssayDTO> update(@PathVariable("id") Long id, @RequestBody EssayInsertDTO essayInsertDTO) {
 
-        EssayDTO dto = service.update(id, essayDTO);
+        EssayDTO dto = service.update(id, essayInsertDTO);
 
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(essayDTO.getId()).toUri();
-
-        return ResponseEntity.created(uri).body(dto);    }
+        return ResponseEntity.ok().body(dto);
+    }
 
 }

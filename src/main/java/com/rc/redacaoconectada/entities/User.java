@@ -10,9 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Entity
@@ -43,6 +41,9 @@ public class User implements Serializable, UserDetails {
   private String schoolName;
   private String state;
   private String city;
+
+  @OneToMany(mappedBy = "user")
+  private final List<Essay> essays = new ArrayList<>();
 
   @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(name = "tb_user_role",
