@@ -67,10 +67,20 @@ public class UserService implements UserDetailsService {
     return user;
   }
 
-  public UserDTO changeUserName(UserChangeDTO newUser) throws UsernameNotFoundException {
+  public UserDTO updateUser(UserChangeDTO newUser) throws UsernameNotFoundException {
 
     User u = repository.findByEmail(newUser.getEmail());
 
+    if (u == null) {
+      log.error("method=loadUserByUsername, msg=user {} not found", u.getUsername());
+      throw new UsernameNotFoundException("Email not found");
+    }
 
+    u.setImage(newUser.getImage());
+    u.setName(newUser.getName());
+
+    repository.save(u);
+
+    return new UserDTO(u);
   }
 }

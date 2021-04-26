@@ -42,6 +42,8 @@ public class User implements Serializable, UserDetails {
   private String state;
   private String city;
 
+  private String image;
+
   @OneToMany(mappedBy = "user")
   private final List<Essay> essays = new ArrayList<>();
 

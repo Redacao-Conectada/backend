@@ -44,6 +44,8 @@ public class UserDTO implements Serializable {
   @NotBlank(message = "Nome da cidade requerido")
   private String city;
 
+  private String image;
+
   private final List<RoleDTO> roles = new ArrayList<>();
 
   public UserDTO(User user) {

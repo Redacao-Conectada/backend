@@ -12,9 +12,11 @@ import lombok.NoArgsConstructor;
 public class UserChangeDTO extends UserDTO{
 
     private String newUserName;
+    private String image;
 
     public UserChangeDTO(String newUserName){
         super();
         this.newUserName = newUserName;
+        this.image = image;
     }
 }

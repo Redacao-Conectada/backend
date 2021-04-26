@@ -28,9 +28,9 @@ public class UserController {
     return ResponseEntity.created(uri).body(dto);
   }
 
-  @PutMapping("/changeName")
-  public ResponseEntity<UserDTO> changeUserName(@Valid @RequestBody UserChangeDTO newUser) {
+  @PutMapping("/update")
+  public ResponseEntity<UserDTO> updateUser(@Valid @RequestBody UserChangeDTO newUser) {
 
-    return new ResponseEntity<>(service.changeUserName(newUser), HttpStatus.OK);
+    return new ResponseEntity<>(service.updateUser(newUser), HttpStatus.OK);
   }
 }
