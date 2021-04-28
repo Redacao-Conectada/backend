@@ -23,3 +23,16 @@ INSERT INTO tb_admin (id) VALUES (1);
 INSERT INTO tb_essay (user_id, up_vote, body) VALUES (1, 0, 'Redação é o processo de redigir (escrever) um texto.');
 INSERT INTO tb_essay (user_id, up_vote, body) VALUES (2, 0, 'Redação é o processo de redigir (escrever) um texto.');
 INSERT INTO tb_essay (user_id, up_vote, body) VALUES (3, 0, 'Redação é o processo de redigir (escrever) um texto.');
+
+-- Corrections
+INSERT INTO tb_correction (teacher_id, essay_id, created_date, first_competence_grade, first_grade, second_competence_grade,
+second_grade, third_competence_grade, third_grade, fourth_competence_grade, fourth_grade, fifth_competence_grade, fifth_grade)
+VALUES (2, 3, TIMESTAMP  WITH TIME ZONE '2020-07-13T20:50:07.12345Z', 3, 120, 3, 120, 3, 120, 3, 120, 3, 120);
+
+INSERT INTO tb_correction (teacher_id, essay_id, created_date, first_competence_grade, first_grade, second_competence_grade,
+second_grade, third_competence_grade, third_grade, fourth_competence_grade, fourth_grade, fifth_competence_grade, fifth_grade)
+VALUES (2, 1, TIMESTAMP  WITH TIME ZONE '2020-07-13T20:50:07.12345Z', 0, 0, 1, 40, 2, 80, 3, 120, 4, 160);
+
+INSERT INTO tb_correction (teacher_id, essay_id, created_date, first_competence_grade, first_grade, second_competence_grade,
+second_grade, third_competence_grade, third_grade, fourth_competence_grade, fourth_grade, fifth_competence_grade, fifth_grade)
+VALUES (2, 2, TIMESTAMP  WITH TIME ZONE '2020-07-13T20:50:07.12345Z', 5, 200, 5, 200, 5, 200, 5, 200, 5, 200);

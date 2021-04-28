@@ -26,6 +26,10 @@ public class Essay implements Serializable {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @OneToOne
+    @JoinColumn(name = "correction_id")
+    private Correction correction;
+
     private Integer upVote;
 
     @Column(columnDefinition = "TEXT")
