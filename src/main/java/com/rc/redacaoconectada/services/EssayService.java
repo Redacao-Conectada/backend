@@ -135,7 +135,7 @@ public class EssayService {
             }else {
                 throw new ResourceNotFoundException("Only the User I create can update");
             }
-            
+
             return new EssayDTO(essay);
 
     }

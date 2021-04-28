@@ -45,7 +45,7 @@ public class User implements Serializable, UserDetails {
   @OneToMany(mappedBy = "user")
   private final List<Essay> essays = new ArrayList<>();
 
-  @ManyToMany(fetch = FetchType.EAGER)
+  @ManyToMany(mappedBy = "userUpVotes")
   private final List<Essay> likedEssays = new ArrayList<>();
 
   @ManyToMany(fetch = FetchType.EAGER)
