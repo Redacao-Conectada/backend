@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "tb_essay")
@@ -32,5 +34,19 @@ public class Essay implements Serializable {
 
     @Column(columnDefinition = "TEXT")
     private String body;
+
+    @ManyToMany
+    @JoinTable(name = "tb_essay_user_upvote",
+               joinColumns = @JoinColumn(name = "user_id"),
+               inverseJoinColumns = @JoinColumn(name = "essay_id"))
+    private final List<User> userUpVotes = new ArrayList<>();
+
+    public void setUserUpVotes(User user) {
+        userUpVotes.add(user);
+    }
+
+    public void removeUserUpVotes (User user) {
+        userUpVotes.remove(user);
+    }
 
 }
