@@ -23,7 +23,7 @@ public class CorrectionController {
 
     @GetMapping
     public ResponseEntity<Page<CorrectionDTO>> findAll(@RequestParam(value = "page", defaultValue = "0") Integer page,
-                                                  @RequestParam(value = "essayPerPage", defaultValue = "12") Integer correctionPerPage,
+                                                  @RequestParam(value = "correctionPerPage", defaultValue = "12") Integer correctionPerPage,
                                                   @RequestParam(value = "direction", defaultValue = "ASC") String direction,
                                                   @RequestParam(value = "orderBy", defaultValue = "id") String id) {
 
