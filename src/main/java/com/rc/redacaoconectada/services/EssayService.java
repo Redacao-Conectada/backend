@@ -2,7 +2,6 @@ package com.rc.redacaoconectada.services;
 
 import com.rc.redacaoconectada.dtos.EssayDTO;
 import com.rc.redacaoconectada.dtos.EssayInsertDTO;
-import com.rc.redacaoconectada.dtos.UserDTO;
 import com.rc.redacaoconectada.entities.Essay;
 import com.rc.redacaoconectada.entities.User;
 import com.rc.redacaoconectada.repositories.EssayRepository;
@@ -54,9 +53,17 @@ public class EssayService {
 
     public void deleteEssayById(Long id) {
         try {
+            Optional<Essay> essayBD = this.essayRepository.findById(id);
+            Essay essay = essayBD.get();
+
+            if (essay.getCorrection() != null) {
+                throw new ResourceNotFoundException("Delete is not possible, Essay in correction");
+            }
+
             essayRepository.deleteById(id);
+
         } catch (EmptyResultDataAccessException e) {
-            throw new ResourceNotFoundException("ID not Found " + id);
+            throw new ResourceNotFoundException("Essay not found: " + id);
         } catch (DataIntegrityViolationException e) {
             throw new DatabaseException("Integrity violation");
         }
@@ -122,9 +129,12 @@ public class EssayService {
 
     @Transactional
     public EssayDTO update(Long id, EssayInsertDTO essayInsertDTO) {
-        //Falta a verificacao de so ser atualizada caso nao tenha solicitacao de correcao
             Optional<Essay> essayBD = this.essayRepository.findById(id);
             Essay essay = essayBD.orElseThrow(() -> new ResourceNotFoundException("Essay not found"));
+
+            if (essay.getCorrection() != null) {
+                throw new ResourceNotFoundException("Update is not possible, Essay in correction");
+            }
 
             Optional<User> userBD = userRepository.findById(essayInsertDTO.getIdUser());
             User user = userBD.orElseThrow(() -> new ResourceNotFoundException("User not found"));

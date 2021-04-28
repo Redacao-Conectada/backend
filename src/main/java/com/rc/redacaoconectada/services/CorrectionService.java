@@ -76,6 +76,10 @@ public class CorrectionService {
         correction.setEssay(essay);
         correction.setCreated_date(correctionInsertDTO.getCreatedDate());
         correction.setCompetences(correctionInsertDTO.getCompetences());
+        correctionRepository.save(correction);
+
+        essay.setCorrection(correction);
+        essayRepository.save(essay);
 
         return correction;
     }
