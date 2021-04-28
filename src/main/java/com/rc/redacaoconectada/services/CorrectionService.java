@@ -78,6 +78,7 @@ public class CorrectionService {
         correction.setCompetences(correctionInsertDTO.getCompetences());
 
         essay.setCorrection(correction);
+        essayRepository.save(essay);
 
         return correction;
     }
