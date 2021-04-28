@@ -61,9 +61,17 @@ public class EssayController {
     }
 
     @PutMapping(value = "/{id}/upvote")
-    public ResponseEntity<Void> upvote(@PathVariable("id") Long id) {
+    public ResponseEntity<Void> upVote(@PathVariable("id") Long id) {
 
         service.upVoteEssay(id);
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping(value = "/{id}/downvote")
+    public ResponseEntity<Void> downVote(@PathVariable("id") Long id) {
+
+        service.downVoteEssay(id);
 
         return ResponseEntity.noContent().build();
     }

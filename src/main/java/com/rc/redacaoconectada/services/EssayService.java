@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,6 +30,9 @@ public class EssayService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private AuthService authService;
 
     @Transactional(readOnly = true)
     public Page<EssayDTO> findAll(PageRequest pageRequest) {
@@ -77,7 +81,7 @@ public class EssayService {
         User user = userBD.orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
         essay.setUser(user);
-        essay.setUpVote(essayInsertDTO.getUpVote());
+        essay.setUpVote(0);
         essay.setBody(essayInsertDTO.getBody());
 
         return essay;
@@ -86,25 +90,53 @@ public class EssayService {
     @Transactional
     public void upVoteEssay(Long id) {
 
-        Optional<Essay> essayBD = this.essayRepository.findById(id);
+        User user = authService.authenticated();
 
+        Optional<Essay> essayBD = this.essayRepository.findById(id);
         Essay essay = essayBD.orElseThrow(() -> new ResourceNotFoundException("Essay not found"));
 
-        essay.setUpVote(essay.getUpVote() + 1);
+        if (!essay.getUserUpVotes().contains(user)) {
+            essay.setUserUpVotes(user);
+            essay.setUpVote(essay.getUpVote() + 1);
+        } else {
+            throw new ResourceNotFoundException("User has already given a UpVote");
+        }
 
+    }
+
+    @Transactional
+    public void downVoteEssay(Long id) {
+
+        User user = authService.authenticated();
+
+        Optional<Essay> essayBD = this.essayRepository.findById(id);
+        Essay essay = essayBD.orElseThrow(() -> new ResourceNotFoundException("Essay not found"));
+
+        if (essay.getUserUpVotes().contains(user)) {
+            essay.removeUserUpVotes(user);
+            essay.setUpVote(essay.getUpVote() - 1);
+        } else {
+            throw new ResourceNotFoundException("User did not cast a UpVote");
+        }
     }
 
     @Transactional
     public EssayDTO update(Long id, EssayInsertDTO essayInsertDTO) {
         //Falta a verificacao de so ser atualizada caso nao tenha solicitacao de correcao
-        try {
-            Essay essay = essayRepository.getOne(id);
-            essay = mapsEssayInsertDTOtoEssay(essayInsertDTO);
-            essay = essayRepository.save(essay);
-            return new EssayDTO(essay);
-        } catch (EmptyResultDataAccessException e) {
-            throw new ResourceNotFoundException("ID not Found " + id);
-        }
-    }
+            Optional<Essay> essayBD = this.essayRepository.findById(id);
+            Essay essay = essayBD.orElseThrow(() -> new ResourceNotFoundException("Essay not found"));
 
+            Optional<User> userBD = userRepository.findById(essayInsertDTO.getIdUser());
+            User user = userBD.orElseThrow(() -> new ResourceNotFoundException("User not found"));
+
+            if (user.getId().equals(essay.getUser().getId())) {
+                essay.setBody(essayInsertDTO.getBody());
+                essay = essayRepository.save(essay);
+            }else {
+                throw new ResourceNotFoundException("Only the User I create can update");
+            }
+            
+            return new EssayDTO(essay);
+
+    }
 }
