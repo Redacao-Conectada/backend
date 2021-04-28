@@ -36,3 +36,8 @@ VALUES (2, 1, TIMESTAMP  WITH TIME ZONE '2020-07-13T20:50:07.12345Z', 0, 0, 1, 4
 INSERT INTO tb_correction (teacher_id, essay_id, created_date, first_competence_grade, first_grade, second_competence_grade,
 second_grade, third_competence_grade, third_grade, fourth_competence_grade, fourth_grade, fifth_competence_grade, fifth_grade)
 VALUES (2, 2, TIMESTAMP  WITH TIME ZONE '2020-07-13T20:50:07.12345Z', 5, 200, 5, 200, 5, 200, 5, 200, 5, 200);
+
+-- UPDATE em essays
+UPDATE tb_essay SET correction_id = 1 WHERE id = 3;
+UPDATE tb_essay SET correction_id = 2 WHERE id = 1;
+UPDATE tb_essay SET correction_id = 3 WHERE id = 2;
