@@ -23,3 +23,10 @@ INSERT INTO tb_admin (id) VALUES (1);
 INSERT INTO tb_essay (user_id, up_vote, body) VALUES (1, 40, 'Redação é o processo de redigir (escrever) um texto.');
 INSERT INTO tb_essay (user_id, up_vote, body) VALUES (2, 50, 'Redação é o processo de redigir (escrever) um texto.');
 INSERT INTO tb_essay (user_id, up_vote, body) VALUES (3, 90, 'Redação é o processo de redigir (escrever) um texto.');
+
+-- Comment
+INSERT INTO tb_Comment (user_id, essay_id, body) VALUES (2, 2, 'Redação legal');
+INSERT INTO tb_Comment (user_id, essay_id, body) VALUES (1, 1, 'Pode melhorar');
+
+-- Pedido de virar professor
+-- (nao funcionando) INSERT INTO tb_changeRoleRequest (user_id, school_registration, school_name_as_teacher, proof_img) VALUES (2, '456543', 'Fera Colegio e Curso','https://www.evidenceexplained.com/system/files/user/user199/Proof-transparent%20canstockphoto12881592.jpg');

@@ -2,20 +2,20 @@ package com.rc.redacaoconectada.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
-@Table(name = "tb_essay")
+@Table(name="tb_Comment")
 @Inheritance(strategy = InheritanceType.JOINED)
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
 @Data
-public class Essay implements Serializable {
+public class Comment implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -28,10 +28,10 @@ public class Essay implements Serializable {
 
     private Integer upVote;
 
+    @ManyToOne
+    @JoinColumn(name = "essay_id")
+    private Essay essay;
+
     @Column(columnDefinition = "TEXT")
     private String body;
-
-    @OneToMany(mappedBy = "essay")
-    private final List<Comment> comments = new ArrayList<>();
-
 }

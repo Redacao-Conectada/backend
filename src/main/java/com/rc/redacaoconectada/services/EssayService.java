@@ -5,6 +5,7 @@ import com.rc.redacaoconectada.dtos.EssayInsertDTO;
 import com.rc.redacaoconectada.dtos.UserDTO;
 import com.rc.redacaoconectada.entities.Essay;
 import com.rc.redacaoconectada.entities.User;
+import com.rc.redacaoconectada.repositories.CommentRepository;
 import com.rc.redacaoconectada.repositories.EssayRepository;
 import com.rc.redacaoconectada.repositories.UserRepository;
 import com.rc.redacaoconectada.services.exceptions.DatabaseException;
@@ -29,6 +30,9 @@ public class EssayService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private CommentRepository commentRepository;
 
     @Transactional(readOnly = true)
     public Page<EssayDTO> findAll(PageRequest pageRequest) {

@@ -45,6 +45,9 @@ public class User implements Serializable, UserDetails {
   @OneToMany(mappedBy = "user")
   private final List<Essay> essays = new ArrayList<>();
 
+  @OneToMany(mappedBy = "essay")
+  private final List<Comment> comments = new ArrayList<>();
+
   @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(name = "tb_user_role",
             joinColumns = @JoinColumn(name = "user_id"),
