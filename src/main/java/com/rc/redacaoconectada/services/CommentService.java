@@ -46,5 +46,6 @@ public class CommentService {
         comment.setBody(commentDTO.getBody());
         comment.setEssay(essay);
         comment.setUser(user);
+        comment.setUpVote(commentDTO.getUpVote());
     }
 }

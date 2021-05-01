@@ -34,4 +34,15 @@ public class Comment implements Serializable {
 
     @Column(columnDefinition = "TEXT")
     private String body;
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "id=" + id +
+                ", user=" + user +
+                ", upVote=" + upVote +
+                ", essay=" + essay +
+                ", body='" + body + '\'' +
+                '}';
+    }
 }

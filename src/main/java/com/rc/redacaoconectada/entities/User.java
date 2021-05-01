@@ -48,6 +48,9 @@ public class User implements Serializable, UserDetails {
   @OneToMany(mappedBy = "essay")
   private final List<Comment> comments = new ArrayList<>();
 
+  @OneToMany(mappedBy = "user")
+  private final List<ChangeRoleRequest> changeRoleRequest = new ArrayList<>();
+
   @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(name = "tb_user_role",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -83,5 +86,24 @@ public class User implements Serializable, UserDetails {
   @Override
   public boolean isEnabled() {
     return true;
+  }
+
+  @Override
+  public String toString() {
+    return "User{" +
+            "id=" + id +
+            ", cpf='" + cpf + '\'' +
+            ", name='" + name + '\'' +
+            ", email='" + email + '\'' +
+            ", password='" + password + '\'' +
+            ", birthdate=" + birthdate +
+            ", graduation='" + graduation + '\'' +
+            ", schoolName='" + schoolName + '\'' +
+            ", state='" + state + '\'' +
+            ", city='" + city + '\'' +
+            ", essays=" + essays +
+            ", comments=" + comments +
+            ", roles=" + roles +
+            '}';
   }
 }

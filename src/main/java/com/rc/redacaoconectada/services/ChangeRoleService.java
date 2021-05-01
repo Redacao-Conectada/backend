@@ -30,14 +30,14 @@ public class ChangeRoleService {
         return new UserChangeRoleDto(changeRoleRequest);
     }
 
-    private void dtoChangeRoleToEntityConverter(UserChangeRoleInsertDTO requestChangeRole, ChangeRoleRequest changeRoleRequest) {
+    private void dtoChangeRoleToEntityConverter(UserChangeRoleInsertDTO requestChangeRoleDTO, ChangeRoleRequest changeRoleRequest) {
 
-        Optional<User> userBD = userRepository.findById(requestChangeRole.getIdUser());
+        Optional<User> userBD = userRepository.findById(requestChangeRoleDTO.getIdUser());
         User user = userBD.orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
-        changeRoleRequest.setProof_img(requestChangeRole.getProof_img());
-        changeRoleRequest.setSchool_registration(changeRoleRequest.getSchool_registration());
-        changeRoleRequest.setSchool_name_as_teacher(changeRoleRequest.getSchool_name_as_teacher());
+        changeRoleRequest.setProof_img(requestChangeRoleDTO.getProof_img());
+        changeRoleRequest.setSchool_registration(requestChangeRoleDTO.getSchool_registration());
+        changeRoleRequest.setSchool_name_as_teacher(requestChangeRoleDTO.getSchool_name_as_teacher());
         changeRoleRequest.setUser(user);
 
     }

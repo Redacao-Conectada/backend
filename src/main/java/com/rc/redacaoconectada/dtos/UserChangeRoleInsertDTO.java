@@ -1,11 +1,9 @@
 package com.rc.redacaoconectada.dtos;
 
-import com.rc.redacaoconectada.services.validation.UserInsertValid;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import com.rc.redacaoconectada.entities.ChangeRoleRequest;
 
@@ -13,18 +11,15 @@ import java.io.Serializable;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode
-@UserInsertValid
 public class UserChangeRoleInsertDTO implements Serializable {
 
-    @NotNull(message = "school_registration requerido")
+    @NotBlank(message = "school_registration requerido")
     private String school_registration;
 
-    @NotNull(message = "school_name_as_teacher requerido")
+    @NotBlank(message = "school_name_as_teacher requerido")
     private String school_name_as_teacher;
 
-    @NotNull(message = "proof_img requerido")
+    @NotBlank(message = "proof_img requerido")
     private String proof_img;
 
     @NotNull(message = "IdUser requerido")

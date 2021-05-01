@@ -2,6 +2,7 @@ package com.rc.redacaoconectada.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -12,6 +13,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Getter
 public class ChangeRoleRequest {
     private static final long serialVersionUID = 1L;
 

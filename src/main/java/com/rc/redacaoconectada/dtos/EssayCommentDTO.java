@@ -24,6 +24,7 @@ public class EssayCommentDTO implements Serializable {
         this.userDTO = new UserDTO(comment.getUser());
         this.upVote = comment.getUpVote();
         this.essayDTO = new EssayDTO(comment.getEssay());
+        this.body = comment.getBody();
     }
 
 }

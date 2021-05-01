@@ -25,9 +25,13 @@ public class EssayCommentInsertDTO implements Serializable {
     @NotBlank(message = "Body requerido")
     private String body;
 
+    @NotNull(message = "UpVote requerido")
+    private Integer upVote;
+
     public EssayCommentInsertDTO(Comment comment) {
         this.idUser = comment.getUser().getId();
         this.idEssay = comment.getEssay().getId();
         this.body = comment.getBody();
+        this.upVote = comment.getUpVote();
     }
 }

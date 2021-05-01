@@ -34,4 +34,14 @@ public class Essay implements Serializable {
     @OneToMany(mappedBy = "essay")
     private final List<Comment> comments = new ArrayList<>();
 
+    @Override
+    public String toString() {
+        return "Essay{" +
+                "id=" + id +
+                ", user=" + user +
+                ", upVote=" + upVote +
+                ", body='" + body + '\'' +
+                ", comments=" + comments +
+                '}';
+    }
 }
