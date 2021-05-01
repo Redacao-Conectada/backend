@@ -1,24 +1,25 @@
 package com.rc.redacaoconectada.dtos;
 
 import com.rc.redacaoconectada.entities.ChangeRoleRequest;
-import com.rc.redacaoconectada.entities.User;
+import lombok.Getter;
 
 import java.io.Serializable;
 
-public class UserChangeRoleDto implements Serializable {
+@Getter
+public class UserChangeRoleDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private Long id;
     private String schoolRegistration;
     private String schoolNameAsTeacher;
     private String proofImg;
-    private User user;
+    private UserDTO userDTO;
 
-    public UserChangeRoleDto(ChangeRoleRequest changeRoleRequest) {
+    public UserChangeRoleDTO(ChangeRoleRequest changeRoleRequest) {
         this.id = changeRoleRequest.getId();
         this.proofImg = changeRoleRequest.getProof_img();
         this.schoolNameAsTeacher = changeRoleRequest.getSchool_name_as_teacher();
         this.schoolRegistration = changeRoleRequest.getSchool_registration();
-        this.user = changeRoleRequest.getUser();
+        this.userDTO = new UserDTO(changeRoleRequest.getUser());
     }
 }

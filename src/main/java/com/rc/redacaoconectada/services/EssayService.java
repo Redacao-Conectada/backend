@@ -31,8 +31,6 @@ public class EssayService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private CommentRepository commentRepository;
 
     @Transactional(readOnly = true)
     public Page<EssayDTO> findAll(PageRequest pageRequest) {

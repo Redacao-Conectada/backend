@@ -45,8 +45,8 @@ public class UserController {
   }
 
   @PostMapping("/changeRole/{id}")
-  public ResponseEntity<UserChangeRoleDto> requestChangeRole(@Valid @RequestBody UserChangeRoleInsertDTO request) {
-    UserChangeRoleDto dto = changeRoleService.requestChangeRole(request);
+  public ResponseEntity<UserChangeRoleDTO> requestChangeRole(@Valid @RequestBody UserChangeRoleInsertDTO request) {
+    UserChangeRoleDTO dto = changeRoleService.requestChangeRole(request);
     URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
             .buildAndExpand(request.getIdUser()).toUri();
     return ResponseEntity.created(uri).body(dto);

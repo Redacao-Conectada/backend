@@ -1,9 +1,6 @@
 package com.rc.redacaoconectada.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -12,8 +9,8 @@ import javax.persistence.*;
 @Inheritance(strategy = InheritanceType.JOINED)
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
 @Getter
+@Setter
 public class ChangeRoleRequest {
     private static final long serialVersionUID = 1L;
 
@@ -28,6 +25,5 @@ public class ChangeRoleRequest {
     private String proof_img;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
     private User user;
 }

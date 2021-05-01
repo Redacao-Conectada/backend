@@ -1,6 +1,6 @@
 package com.rc.redacaoconectada.services;
 
-import com.rc.redacaoconectada.dtos.UserChangeRoleDto;
+import com.rc.redacaoconectada.dtos.UserChangeRoleDTO;
 import com.rc.redacaoconectada.dtos.UserChangeRoleInsertDTO;
 import com.rc.redacaoconectada.entities.ChangeRoleRequest;
 import com.rc.redacaoconectada.entities.User;
@@ -23,11 +23,11 @@ public class ChangeRoleService {
     private ChangeRoleRequestRepository changeRoleRequestRepository;
 
     @Transactional
-    public UserChangeRoleDto requestChangeRole(UserChangeRoleInsertDTO requestChangeRole) {
+    public UserChangeRoleDTO requestChangeRole(UserChangeRoleInsertDTO requestChangeRole) {
         ChangeRoleRequest changeRoleRequest = new ChangeRoleRequest();
         dtoChangeRoleToEntityConverter(requestChangeRole, changeRoleRequest);
         changeRoleRequest = changeRoleRequestRepository.save(changeRoleRequest);
-        return new UserChangeRoleDto(changeRoleRequest);
+        return new UserChangeRoleDTO(changeRoleRequest);
     }
 
     private void dtoChangeRoleToEntityConverter(UserChangeRoleInsertDTO requestChangeRoleDTO, ChangeRoleRequest changeRoleRequest) {

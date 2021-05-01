@@ -7,7 +7,9 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_essay")
@@ -32,7 +34,7 @@ public class Essay implements Serializable {
     private String body;
 
     @OneToMany(mappedBy = "essay")
-    private final List<Comment> comments = new ArrayList<>();
+    private final Set<Comment> comments = new HashSet<>();
 
     @Override
     public String toString() {

@@ -27,6 +27,7 @@ public class User implements Serializable, UserDetails {
   private Long id;
 
   private String cpf;
+
   private String name;
 
   @Column(unique = true)
@@ -38,18 +39,21 @@ public class User implements Serializable, UserDetails {
   private Instant birthdate;
 
   private String graduation;
+
   private String schoolName;
+
   private String state;
+
   private String city;
 
   @OneToMany(mappedBy = "user")
   private final List<Essay> essays = new ArrayList<>();
 
   @OneToMany(mappedBy = "essay")
-  private final List<Comment> comments = new ArrayList<>();
+  private final Set<Comment> comments = new HashSet<>();
 
   @OneToMany(mappedBy = "user")
-  private final List<ChangeRoleRequest> changeRoleRequest = new ArrayList<>();
+  private final Set<ChangeRoleRequest> changeRoleRequest = new HashSet<>();
 
   @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(name = "tb_user_role",
