@@ -24,6 +24,13 @@ INSERT INTO tb_essay (user_id, up_vote, body) VALUES (1, 0, 'Redação é o proc
 INSERT INTO tb_essay (user_id, up_vote, body) VALUES (2, 0, 'Redação é o processo de redigir (escrever) um texto.');
 INSERT INTO tb_essay (user_id, up_vote, body) VALUES (3, 0, 'Redação é o processo de redigir (escrever) um texto.');
 
+-- Comment
+INSERT INTO tb_Comment (user_id, essay_id, body, up_vote) VALUES (2, 2, 'Redação legal', 0);
+INSERT INTO tb_Comment (user_id, essay_id, body, up_vote) VALUES (1, 1, 'Pode melhorar', 1);
+
+ --Pedido de virar professor
+INSERT INTO tb_change_role_request (user_id, proof_img, school_name_as_teacher,  school_registration) VALUES (2, 'https://www.evidenceexplained.com/system/files/user/user199/Proof-transparent%20canstockphoto12881592.jpg', 'Fera Colegio e Curso', '456543');
+
 -- Corrections
 INSERT INTO tb_correction (teacher_id, essay_id, created_date, first_competence_grade, first_grade, second_competence_grade,
 second_grade, third_competence_grade, third_grade, fourth_competence_grade, fourth_grade, fifth_competence_grade, fifth_grade)

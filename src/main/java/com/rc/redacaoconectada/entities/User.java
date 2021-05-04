@@ -27,6 +27,7 @@ public class User implements Serializable, UserDetails {
   private Long id;
 
   private String cpf;
+
   private String name;
 
   @Column(unique = true)
@@ -38,13 +39,22 @@ public class User implements Serializable, UserDetails {
   private Instant birthdate;
 
   private String graduation;
+
   private String schoolName;
+
   private String state;
+
   private String city;
 
   @OneToMany(mappedBy = "user")
   private final List<Essay> essays = new ArrayList<>();
 
+  @OneToMany(mappedBy = "essay")
+  private final Set<Comment> comments = new HashSet<>();
+
+  @OneToMany(mappedBy = "user")
+  private final Set<ChangeRoleRequest> changeRoleRequest = new HashSet<>();
+  
   @ManyToMany(mappedBy = "userUpVotes")
   private final List<Essay> likedEssays = new ArrayList<>();
 
@@ -83,5 +93,24 @@ public class User implements Serializable, UserDetails {
   @Override
   public boolean isEnabled() {
     return true;
+  }
+
+  @Override
+  public String toString() {
+    return "User{" +
+            "id=" + id +
+            ", cpf='" + cpf + '\'' +
+            ", name='" + name + '\'' +
+            ", email='" + email + '\'' +
+            ", password='" + password + '\'' +
+            ", birthdate=" + birthdate +
+            ", graduation='" + graduation + '\'' +
+            ", schoolName='" + schoolName + '\'' +
+            ", state='" + state + '\'' +
+            ", city='" + city + '\'' +
+            ", essays=" + essays +
+            ", comments=" + comments +
+            ", roles=" + roles +
+            '}';
   }
 }
