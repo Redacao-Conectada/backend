@@ -41,6 +41,13 @@ public class Essay implements Serializable {
                inverseJoinColumns = @JoinColumn(name = "user_id"))
     private final List<User> userUpVotes = new ArrayList<>();
 
+    public Essay(Long id, User user, Integer upVote, String body) {
+        this.id = id;
+        this.user = user;
+        this.upVote = upVote;
+        this.body = body;
+    }
+
     public void setUserUpVotes(User user) {
         userUpVotes.add(user);
     }
