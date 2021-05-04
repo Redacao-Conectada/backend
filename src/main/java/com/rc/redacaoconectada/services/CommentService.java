@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -33,6 +35,22 @@ public class CommentService {
         dtoCommentToEntityConverter(comment, commentTemp);
         commentTemp = commentRepository.save(commentTemp);
         return new EssayCommentDTO(commentTemp);
+    }
+
+    public List<EssayCommentDTO> listComments(){
+        List<Comment> comments =  commentRepository.findAll();
+        List<EssayCommentDTO> dtoCommentList = new ArrayList<EssayCommentDTO>();
+        for (Comment comment: comments){
+            dtoCommentList.add(new EssayCommentDTO(comment));
+        }
+        return dtoCommentList;
+    }
+
+    /*Deleta um comentário já cadastrado no sistema*/
+    public EssayCommentDTO deleteComment(Long id){
+        Comment commentCopy = commentRepository.getOne(id);
+        commentRepository.deleteById(id);
+        return new EssayCommentDTO(commentCopy);
     }
 
     private void dtoCommentToEntityConverter(EssayCommentInsertDTO commentDTO, Comment comment) {

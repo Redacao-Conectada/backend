@@ -1,10 +1,12 @@
 package com.rc.redacaoconectada.controllers;
 
 import com.rc.redacaoconectada.dtos.*;
+import com.rc.redacaoconectada.entities.Essay;
 import com.rc.redacaoconectada.services.ChangeRoleService;
 import com.rc.redacaoconectada.services.CommentService;
 
 import com.rc.redacaoconectada.services.UserService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +15,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/users")
@@ -37,8 +40,17 @@ public class UserController {
 
   @PutMapping("/update")
   public ResponseEntity<UserDTO> updateUser(@Valid @RequestBody UserChangeDTO newUser) {
-
     return new ResponseEntity<>(service.updateUser(newUser), HttpStatus.OK);
+  }
+
+  @GetMapping("/comments")
+  public ResponseEntity<List<EssayCommentDTO>> getComments(){
+    return new ResponseEntity<List<EssayCommentDTO>>(commentService.listComments(), HttpStatus.OK);
+  }
+
+  @DeleteMapping
+  public ResponseEntity<EssayCommentDTO> deleteComment(@Valid Long id){
+      return new ResponseEntity<EssayCommentDTO>(commentService.deleteComment(id), HttpStatus.OK);
   }
   
   @PostMapping("/comment/{id}")
