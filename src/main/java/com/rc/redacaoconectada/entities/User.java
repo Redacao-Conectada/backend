@@ -54,6 +54,9 @@ public class User implements Serializable, UserDetails {
 
   @OneToMany(mappedBy = "user")
   private final Set<ChangeRoleRequest> changeRoleRequest = new HashSet<>();
+  
+  @ManyToMany(mappedBy = "userUpVotes")
+  private final List<Essay> likedEssays = new ArrayList<>();
 
   @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(name = "tb_user_role",

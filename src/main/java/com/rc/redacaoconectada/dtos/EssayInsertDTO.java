@@ -15,15 +15,11 @@ public class EssayInsertDTO implements Serializable {
     @NotNull(message = "IdUser requerido")
     private Long idUser;
 
-    @NotNull(message = "UpVote requerido")
-    private Integer upVote;
-
     @NotBlank(message = "Body requerido")
     private String body;
 
     public EssayInsertDTO(Essay essay) {
         this.idUser = essay.getUser().getId();
-        this.upVote = essay.getUpVote();
         this.body = essay.getBody();
     }
 
