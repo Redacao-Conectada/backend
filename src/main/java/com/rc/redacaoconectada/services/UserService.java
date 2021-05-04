@@ -1,13 +1,10 @@
 package com.rc.redacaoconectada.services;
 
-import com.rc.redacaoconectada.dtos.UserChangeDTO;
-import com.rc.redacaoconectada.dtos.UserDTO;
-import com.rc.redacaoconectada.dtos.UserInsertDTO;
-import com.rc.redacaoconectada.entities.Role;
-import com.rc.redacaoconectada.entities.Student;
-import com.rc.redacaoconectada.entities.User;
-import com.rc.redacaoconectada.repositories.RoleRepository;
-import com.rc.redacaoconectada.repositories.UserRepository;
+import com.rc.redacaoconectada.dtos.*;
+import com.rc.redacaoconectada.entities.*;
+import com.rc.redacaoconectada.repositories.*;
+import com.rc.redacaoconectada.services.exceptions.ResourceNotFoundException;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,6 +14,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 @Slf4j
 public class UserService implements UserDetailsService {
@@ -25,10 +24,16 @@ public class UserService implements UserDetailsService {
   private BCryptPasswordEncoder passwordEncoder;
 
   @Autowired
+  private EssayRepository essayRepository;
+
+  @Autowired
   private UserRepository repository;
 
   @Autowired
   private RoleRepository roleRepository;
+
+  @Autowired
+  private ChangeRoleRequestRepository changeRoleRequestRepository;
 
   @Transactional
   public UserDTO insert(UserInsertDTO user) {
@@ -39,6 +44,7 @@ public class UserService implements UserDetailsService {
     student = repository.save(student);
     return new UserDTO(student);
   }
+
 
   private void copyDtoToEntity(UserInsertDTO user, Student student) {
     student.setCpf(user.getCpf());
@@ -54,6 +60,8 @@ public class UserService implements UserDetailsService {
     Role role = roleRepository.getOne(1L);
     student.getRoles().add(role);
   }
+
+
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

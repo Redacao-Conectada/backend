@@ -4,6 +4,7 @@ import com.rc.redacaoconectada.dtos.EssayDTO;
 import com.rc.redacaoconectada.dtos.EssayInsertDTO;
 import com.rc.redacaoconectada.entities.Essay;
 import com.rc.redacaoconectada.entities.User;
+import com.rc.redacaoconectada.repositories.CommentRepository;
 import com.rc.redacaoconectada.repositories.EssayRepository;
 import com.rc.redacaoconectada.repositories.UserRepository;
 import com.rc.redacaoconectada.services.exceptions.DatabaseException;

@@ -1,11 +1,9 @@
 package com.rc.redacaoconectada.repositories;
 
-import com.rc.redacaoconectada.entities.Essay;
+import com.rc.redacaoconectada.entities.ChangeRoleRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
-public interface EssayRepository extends JpaRepository<Essay, Long> {
+public interface ChangeRoleRequestRepository extends JpaRepository<ChangeRoleRequest, Long> {
 }
