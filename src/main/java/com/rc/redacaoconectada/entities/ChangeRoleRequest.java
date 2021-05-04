@@ -15,7 +15,6 @@ public class ChangeRoleRequest implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JoinColumn(name = "user_id")
     private Long id;
 
     private String school_registration;
@@ -25,5 +24,6 @@ public class ChangeRoleRequest implements Serializable {
     private String proof_img;
 
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 }
