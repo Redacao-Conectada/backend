@@ -8,7 +8,4 @@ import java.util.List;
 
 @Repository
 public interface EssayRepository extends JpaRepository<Essay, Long> {
-
-//    List<Essay> findBy
-
 }

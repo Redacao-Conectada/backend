@@ -10,10 +10,8 @@ import java.io.Serializable;
 
 @Entity
 @Table(name="tb_Comment")
-@Inheritance(strategy = InheritanceType.JOINED)
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
 @Data
 public class Comment implements Serializable {
     private static final long serialVersionUID = 1L;

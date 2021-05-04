@@ -9,9 +9,12 @@ import com.rc.redacaoconectada.entities.ChangeRoleRequest;
 
 import java.io.Serializable;
 
+
 @Data
 @NoArgsConstructor
 public class UserChangeRoleInsertDTO implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @NotBlank(message = "school_registration requerido")
     private String school_registration;

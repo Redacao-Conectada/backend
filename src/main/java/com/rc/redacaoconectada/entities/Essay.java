@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -36,6 +37,13 @@ public class Essay implements Serializable {
     @OneToMany(mappedBy = "essay")
     private final Set<Comment> comments = new HashSet<>();
 
+    private Instant createdAt;
+
+    @PrePersist
+    public void prePersistent() {
+        this.createdAt = Instant.now();
+    }
+
     @Override
     public String toString() {
         return "Essay{" +
@@ -44,6 +52,7 @@ public class Essay implements Serializable {
                 ", upVote=" + upVote +
                 ", body='" + body + '\'' +
                 ", comments=" + comments +
+                ", createdAt=" + createdAt +
                 '}';
     }
 }

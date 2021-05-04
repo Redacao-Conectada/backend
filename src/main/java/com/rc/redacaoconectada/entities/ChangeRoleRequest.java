@@ -3,19 +3,19 @@ package com.rc.redacaoconectada.entities;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "tb_changeRoleRequest")
-@Inheritance(strategy = InheritanceType.JOINED)
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
-public class ChangeRoleRequest {
+@Data
+public class ChangeRoleRequest implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JoinColumn(name = "user_id")
     private Long id;
 
     private String school_registration;
