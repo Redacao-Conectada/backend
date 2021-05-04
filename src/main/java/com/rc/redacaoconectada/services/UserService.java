@@ -4,6 +4,7 @@ import com.rc.redacaoconectada.dtos.*;
 import com.rc.redacaoconectada.entities.*;
 import com.rc.redacaoconectada.repositories.*;
 import com.rc.redacaoconectada.services.exceptions.ResourceNotFoundException;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -72,5 +73,22 @@ public class UserService implements UserDetailsService {
       throw new UsernameNotFoundException("Email not found");
     }
     return user;
+  }
+
+  public UserDTO updateUser(UserChangeDTO newUser) throws UsernameNotFoundException {
+
+    User u = repository.findByEmail(newUser.getEmail());
+
+    if (u == null) {
+      log.error("method=loadUserByUsername, msg=user {} not found", newUser.getNewUserName());
+      throw new UsernameNotFoundException("Email not found");
+    }
+
+    u.setImage(newUser.getImage());
+    u.setName(newUser.getNewUserName());
+
+    repository.save(u);
+
+    return new UserDTO(u);
   }
 }
