@@ -5,8 +5,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-@EqualsAndHashCode(callSuper = true)
-@UserInsertValid
 @Data
 @NoArgsConstructor
 public class UserChangeDTO extends UserDTO{

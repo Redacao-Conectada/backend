@@ -58,6 +58,7 @@ public class UserDTO implements Serializable {
     this.schoolName = user.getSchoolName();
     this.state = user.getState();
     this.city = user.getCity();
+    this.image = user.getImage();
 
     user.getRoles().forEach(role -> this.roles.add(new RoleDTO(role)));
   }

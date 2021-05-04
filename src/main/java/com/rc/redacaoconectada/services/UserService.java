@@ -77,7 +77,7 @@ public class UserService implements UserDetailsService {
     }
 
     u.setImage(newUser.getImage());
-    u.setName(newUser.getName());
+    u.setName(newUser.getNewUserName());
 
     repository.save(u);
 
