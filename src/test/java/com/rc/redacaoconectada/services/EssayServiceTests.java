@@ -48,7 +48,7 @@ public class EssayServiceTests {
     }
 
     @Test
-    void loadEssayByIdShouldThrowUsernameNotFoundExceptionWhenEssayDoesNotExists() {
+    void loadEssayByIdShouldThrowResourceNotFoundExceptionWhenEssayDoesNotExists() {
         assertThrows(ResourceNotFoundException.class, () -> service.findEssayById(5L));
     }
 
