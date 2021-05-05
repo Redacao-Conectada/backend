@@ -44,7 +44,7 @@ public class UserController {
   }
 
   @DeleteMapping("/comment/{id}")
-  public ResponseEntity<Void> deleteComment(@Valid @PathVariable Long id){
+  public ResponseEntity<Void> deleteComment(@Valid @PathVariable("id") Long id){
     try{
         commentService.deleteComment(id);
         return new ResponseEntity<>(HttpStatus.OK);
