@@ -8,6 +8,9 @@ import com.rc.redacaoconectada.entities.User;
 import com.rc.redacaoconectada.repositories.RoleRepository;
 import com.rc.redacaoconectada.repositories.UserRepository;
 import com.rc.redacaoconectada.services.exceptions.ResourceNotFoundException;
+import com.rc.redacaoconectada.dtos.*;
+import com.rc.redacaoconectada.repositories.*;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -34,6 +37,7 @@ public class UserService implements UserDetailsService {
   @Autowired
   private RoleRepository roleRepository;
 
+
   @Transactional
   public UserDTO insert(UserInsertDTO user) {
     log.info("method=insert, msg=insert user {}", user.getEmail());
@@ -43,6 +47,7 @@ public class UserService implements UserDetailsService {
     student = repository.save(student);
     return new UserDTO(student);
   }
+
 
   private void copyDtoToEntity(UserInsertDTO user, Student student) {
     student.setCpf(user.getCpf());
@@ -83,5 +88,22 @@ public class UserService implements UserDetailsService {
       throw new UsernameNotFoundException("Email not found");
     }
     return user;
+  }
+
+  public UserDTO updateUser(UserChangeDTO newUser) throws UsernameNotFoundException {
+
+    User u = repository.findByEmail(newUser.getEmail());
+
+    if (u == null) {
+      log.error("method=loadUserByUsername, msg=user {} not found", newUser.getNewUserName());
+      throw new UsernameNotFoundException("Email not found");
+    }
+
+    u.setImage(newUser.getImage());
+    u.setName(newUser.getNewUserName());
+
+    repository.save(u);
+
+    return new UserDTO(u);
   }
 }
