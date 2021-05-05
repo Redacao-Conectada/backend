@@ -43,7 +43,7 @@ public class UserController {
     return new ResponseEntity<>(service.updateUser(newUser), HttpStatus.OK);
   }
 
-  @DeleteMapping("/comment/{id}")
+  @DeleteMapping(value = "/comment/{id}")
   public ResponseEntity<Void> deleteComment(@Valid @PathVariable("id") Long id){
     try{
         commentService.deleteComment(id);

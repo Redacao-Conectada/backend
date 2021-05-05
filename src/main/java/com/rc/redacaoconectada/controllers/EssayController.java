@@ -52,7 +52,7 @@ public class EssayController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/{id}/comments")
+    @GetMapping(value = "/{id}/comments")
     public ResponseEntity<List<EssayCommentDTO>> getComments(@Valid @PathVariable("id") Long id){
         return new ResponseEntity<List<EssayCommentDTO>>(service.listComments(id), HttpStatus.OK);
     }
