@@ -1,7 +1,9 @@
 package com.rc.redacaoconectada.services;
 
+import com.rc.redacaoconectada.dtos.EssayCommentDTO;
 import com.rc.redacaoconectada.dtos.EssayDTO;
 import com.rc.redacaoconectada.dtos.EssayInsertDTO;
+import com.rc.redacaoconectada.entities.Comment;
 import com.rc.redacaoconectada.entities.Essay;
 import com.rc.redacaoconectada.entities.User;
 import com.rc.redacaoconectada.repositories.CommentRepository;
@@ -17,10 +19,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class EssayService {
@@ -149,5 +148,16 @@ public class EssayService {
 
             return new EssayDTO(essay);
 
+    }
+    /* Retorna uma lista com todos os comentários de uma Essay de ID = id */
+    public List<EssayCommentDTO> listComments(Long id){
+        Essay essay = essayRepository.getOne(id);
+        Set<Comment> comments = essay.getComments();
+
+        List<EssayCommentDTO> queryResult = new ArrayList<EssayCommentDTO>();
+        for(Comment comment : comments){
+            queryResult.add(new EssayCommentDTO(comment));
+        }
+        return queryResult;
     }
 }

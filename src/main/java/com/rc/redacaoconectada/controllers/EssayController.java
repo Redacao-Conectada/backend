@@ -1,5 +1,6 @@
 package com.rc.redacaoconectada.controllers;
 
+import com.rc.redacaoconectada.dtos.EssayCommentDTO;
 import com.rc.redacaoconectada.dtos.EssayDTO;
 import com.rc.redacaoconectada.dtos.EssayInsertDTO;
 import com.rc.redacaoconectada.services.EssayService;
@@ -7,12 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/essays")
@@ -47,6 +50,11 @@ public class EssayController {
         service.deleteEssayById(id);
 
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping(value = "/{id}/comments")
+    public ResponseEntity<List<EssayCommentDTO>> getComments(@Valid @PathVariable("id") Long id){
+        return new ResponseEntity<List<EssayCommentDTO>>(service.listComments(id), HttpStatus.OK);
     }
 
     @PostMapping
