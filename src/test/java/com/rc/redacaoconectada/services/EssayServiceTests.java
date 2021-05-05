@@ -2,7 +2,6 @@ package com.rc.redacaoconectada.services;
 
 import com.rc.redacaoconectada.dtos.EssayDTO;
 import com.rc.redacaoconectada.entities.Essay;
-import com.rc.redacaoconectada.entities.User;
 import com.rc.redacaoconectada.factory.EssayFactory;
 import com.rc.redacaoconectada.repositories.EssayRepository;
 import com.rc.redacaoconectada.services.exceptions.ResourceNotFoundException;

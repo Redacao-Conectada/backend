@@ -3,8 +3,6 @@ package com.rc.redacaoconectada.factory;
 import com.rc.redacaoconectada.entities.Essay;
 import com.rc.redacaoconectada.entities.User;
 
-import java.time.Instant;
-
 public class EssayFactory {
 
     public static Essay createEssay() {
