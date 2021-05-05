@@ -10,6 +10,7 @@ import com.rc.redacaoconectada.repositories.EssayRepository;
 import com.rc.redacaoconectada.repositories.UserRepository;
 import com.rc.redacaoconectada.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.oauth2.common.exceptions.UnauthorizedUserException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +20,9 @@ import java.util.Optional;
 
 @Service
 public class CommentService {
+
+    @Autowired
+    private AuthService authService;
 
     @Autowired
     private CommentRepository commentRepository;
@@ -47,10 +51,21 @@ public class CommentService {
     }
 
     /*Deleta um comentário já cadastrado no sistema*/
-    public EssayCommentDTO deleteComment(Long id){
-        Comment commentCopy = commentRepository.getOne(id);
-        commentRepository.deleteById(id);
-        return new EssayCommentDTO(commentCopy);
+    public void deleteComment(Long id){
+        User user = authService.authenticated();
+        Comment comment  = commentRepository.getOne(id);
+
+        if (comment.getUser().equals(user)) {
+            commentRepository.deleteById(id);
+        }else{
+            Essay essay = comment.getEssay();
+            if(essay.getUser().equals(user)){
+                commentRepository.deleteById(id);
+            }else{
+                throw new UnauthorizedUserException("Invalid User");
+            }
+        }
+
     }
 
     private void dtoCommentToEntityConverter(EssayCommentInsertDTO commentDTO, Comment comment) {

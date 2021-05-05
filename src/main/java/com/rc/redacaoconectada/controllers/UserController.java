@@ -48,9 +48,14 @@ public class UserController {
     return new ResponseEntity<List<EssayCommentDTO>>(commentService.listComments(), HttpStatus.OK);
   }
 
-  @DeleteMapping
-  public ResponseEntity<EssayCommentDTO> deleteComment(@Valid Long id){
-      return new ResponseEntity<EssayCommentDTO>(commentService.deleteComment(id), HttpStatus.OK);
+  @DeleteMapping("/comment/{id}")
+  public ResponseEntity<Void> deleteComment(@Valid @PathVariable Long id){
+    try{
+        commentService.deleteComment(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }catch (Exception e){
+        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+    }
   }
   
   @PostMapping("/comment/{id}")
