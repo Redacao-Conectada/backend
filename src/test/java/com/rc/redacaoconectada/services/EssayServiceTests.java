@@ -32,7 +32,7 @@ public class EssayServiceTests {
     @BeforeEach
     void setUp() throws Exception {
         existingEssay = EssayFactory.createEssay();
-        
+
         when(repository.findById(existingEssay.getId())).thenReturn(Optional.of(existingEssay));
     }
 
@@ -40,9 +40,7 @@ public class EssayServiceTests {
     void loadEssayByIdShouldReturnWhenThereIsId() {
         EssayDTO essayBD = service.findEssayById(existingEssay.getId());
 
-        User user = new User(3L, "123.456.789.11", "Bob", "bob@gmail.com", "12345678", essayBD.getUserDTO().getBirthdate(),
-                "Superior Completo", "UFCG", "PB", "Patos");
-        Essay essay = new Essay(2L, user, 0, "Redação é o processo de redigir (escrever) um texto.");
+        Essay essay = existingEssay;
 
         EssayDTO essayDTO = new EssayDTO(essay);
 
