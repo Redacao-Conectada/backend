@@ -30,9 +30,9 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
   private JwtTokenStore tokenStore;
 
   private static final String[] PUBLIC = {"/oauth/token", "/h2-console/**"};
-  private static final String[] STUDENT = {};
-  private static final String[] TEACHER = {};
-  private static final String[] ADMIN = {};
+  private static final String[] USERS_ROUTE = {"/users/**"};
+  private static final String[] ESSAYS_ROUTE = {"/essays/**"};
+  private static final String[] CORRECTIONS_ROUTE = {"/corrections/**"};
 
   @Override
   public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
@@ -45,9 +45,16 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     if (Arrays.asList(env.getActiveProfiles()).contains("test"))
       http.headers().frameOptions().disable();
 
-    // TODO configurar rotas restantes
+    // TODO Configurar rotas de remoção de usuário apenas para admin (futuramente)
     http.authorizeRequests()
             .antMatchers(PUBLIC).permitAll()
+            .antMatchers(HttpMethod.POST, USERS_ROUTE).permitAll()
+            .antMatchers(USERS_ROUTE).hasAnyRole("STUDENT", "TEACHER", "ADMIN")
+            .antMatchers(HttpMethod.GET, ESSAYS_ROUTE).permitAll()
+            .antMatchers(ESSAYS_ROUTE).hasAnyRole("STUDENT", "TEACHER", "ADMIN")
+            .antMatchers(HttpMethod.GET, CORRECTIONS_ROUTE).hasAnyRole("STUDENT", "TEACHER", "ADMIN")
+            .antMatchers(HttpMethod.POST, CORRECTIONS_ROUTE).hasAnyRole("TEACHER", "ADMIN")
+            .antMatchers(CORRECTIONS_ROUTE).hasRole("ADMIN")
             .anyRequest().authenticated();
 
     http.cors().configurationSource(corsConfigurationSource());
