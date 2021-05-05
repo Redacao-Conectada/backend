@@ -41,15 +41,6 @@ public class CommentService {
         return new EssayCommentDTO(commentTemp);
     }
 
-    public List<EssayCommentDTO> listComments(){
-        List<Comment> comments =  commentRepository.findAll();
-        List<EssayCommentDTO> dtoCommentList = new ArrayList<EssayCommentDTO>();
-        for (Comment comment: comments){
-            dtoCommentList.add(new EssayCommentDTO(comment));
-        }
-        return dtoCommentList;
-    }
-
     /*Deleta um comentário já cadastrado no sistema*/
     public void deleteComment(Long id){
         User user = authService.authenticated();

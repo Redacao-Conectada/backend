@@ -43,11 +43,6 @@ public class UserController {
     return new ResponseEntity<>(service.updateUser(newUser), HttpStatus.OK);
   }
 
-  @GetMapping("/comments")
-  public ResponseEntity<List<EssayCommentDTO>> getComments(){
-    return new ResponseEntity<List<EssayCommentDTO>>(commentService.listComments(), HttpStatus.OK);
-  }
-
   @DeleteMapping("/comment/{id}")
   public ResponseEntity<Void> deleteComment(@Valid @PathVariable Long id){
     try{
