@@ -9,6 +9,8 @@ import com.rc.redacaoconectada.repositories.RoleRepository;
 import com.rc.redacaoconectada.repositories.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -28,6 +30,13 @@ public class UserService implements UserDetailsService {
 
   @Autowired
   private RoleRepository roleRepository;
+
+  @Transactional(readOnly = true)
+  public Page<UserDTO> findUserEssays(String userName, PageRequest pageRequest) {
+    log.info("method=findUserEssays, msg=find essays of username: {} ", userName);
+    Page<User> userEssays = repository.findUserByName(userName, pageRequest);
+    return userEssays.map(UserDTO::new);
+  }
 
   @Transactional
   public UserDTO insert(UserInsertDTO user) {

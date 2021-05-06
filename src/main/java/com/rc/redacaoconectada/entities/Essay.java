@@ -41,6 +41,8 @@ public class Essay implements Serializable {
                inverseJoinColumns = @JoinColumn(name = "user_id"))
     private final List<User> userUpVotes = new ArrayList<>();
 
+    private Boolean isAnon;
+
     public void setUserUpVotes(User user) {
         userUpVotes.add(user);
     }
