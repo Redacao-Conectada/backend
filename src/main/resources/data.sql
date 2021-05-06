@@ -20,9 +20,9 @@ INSERT INTO tb_teacher (id, school_registration, school_name_as_teacher, proof_i
 INSERT INTO tb_admin (id) VALUES (1);
 
 -- Essays
-INSERT INTO tb_essay (user_id, up_vote, body) VALUES (1, 0, 'Redação é o processo de redigir (escrever) um texto.');
-INSERT INTO tb_essay (user_id, up_vote, body) VALUES (2, 0, 'Redação é o processo de redigir (escrever) um texto.');
-INSERT INTO tb_essay (user_id, up_vote, body) VALUES (3, 0, 'Redação é o processo de redigir (escrever) um texto.');
+INSERT INTO tb_essay (user_id, up_vote, body, is_anon) VALUES (1, 0, 'Redação é o processo de redigir (escrever) um texto.', FALSE);
+INSERT INTO tb_essay (user_id, up_vote, body, is_anon) VALUES (2, 0, 'Redação é o processo de redigir (escrever) um texto.', TRUE);
+INSERT INTO tb_essay (user_id, up_vote, body, is_anon) VALUES (3, 0, 'Redação é o processo de redigir (escrever) um texto.', FALSE);
 
 -- Comment
 INSERT INTO tb_Comment (user_id, essay_id, body, up_vote) VALUES (2, 2, 'Redação legal', 0);

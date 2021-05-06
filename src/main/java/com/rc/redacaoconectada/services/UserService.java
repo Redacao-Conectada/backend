@@ -37,6 +37,12 @@ public class UserService implements UserDetailsService {
   @Autowired
   private RoleRepository roleRepository;
 
+  @Transactional(readOnly = true)
+  public Page<UserDTO> findUserEssays(String userName, PageRequest pageRequest) {
+    log.info("method=findUserEssays, msg=find essays of username: {} ", userName);
+    Page<User> userEssays = repository.findUserByName(userName, pageRequest);
+    return userEssays.map(UserDTO::new);
+  }
 
   @Transactional
   public UserDTO insert(UserInsertDTO user) {

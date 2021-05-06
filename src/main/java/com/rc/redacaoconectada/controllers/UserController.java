@@ -8,6 +8,9 @@ import com.rc.redacaoconectada.services.CommentService;
 import com.rc.redacaoconectada.services.UserService;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -38,6 +41,19 @@ public class UserController {
     return ResponseEntity.created(uri).body(dto);
   }
 
+  @GetMapping("/essays")
+  public ResponseEntity<Page<UserDTO>> findUserEssays(@RequestParam(value = "userName", defaultValue = "") String userName,
+                                                      @RequestParam(value = "page", defaultValue = "0") Integer page,
+                                                      @RequestParam(value = "essayPerPage", defaultValue = "12") Integer essayPerPage,
+                                                      @RequestParam(value = "direction", defaultValue = "ASC") String direction,
+                                                      @RequestParam(value = "orderBy", defaultValue = "id") String id) {
+
+    PageRequest pageRequest = PageRequest.of(page, essayPerPage, Sort.Direction.valueOf(direction), id);
+    Page<UserDTO> userEssayDTO = service.findUserEssays(userName.trim(), pageRequest);
+
+    return ResponseEntity.ok().body(userEssayDTO);
+  }
+  
   @PutMapping("/update")
   public ResponseEntity<UserDTO> updateUser(@Valid @RequestBody UserChangeDTO newUser) {
     return new ResponseEntity<>(service.updateUser(newUser), HttpStatus.OK);

@@ -48,21 +48,11 @@ public class Essay implements Serializable {
                inverseJoinColumns = @JoinColumn(name = "user_id"))
     private final List<User> userUpVotes = new ArrayList<>();
 
+    private Boolean isAnon;
+  
     @PrePersist
     public void prePersistent() {
         this.createdAt = Instant.now();
-    }
-
-    @Override
-    public String toString() {
-        return "Essay{" +
-                "id=" + id +
-                ", user=" + user +
-                ", upVote=" + upVote +
-                ", body='" + body + '\'' +
-                ", comments=" + comments +
-                ", createdAt=" + createdAt +
-                '}';
     }
 
     public void setUserUpVotes(User user) {
