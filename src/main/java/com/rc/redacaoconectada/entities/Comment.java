@@ -1,9 +1,6 @@
 package com.rc.redacaoconectada.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -33,14 +30,4 @@ public class Comment implements Serializable {
     @Column(columnDefinition = "TEXT")
     private String body;
 
-    @Override
-    public String toString() {
-        return "Comment{" +
-                "id=" + id +
-                ", user=" + user +
-                ", upVote=" + upVote +
-                ", essay=" + essay +
-                ", body='" + body + '\'' +
-                '}';
-    }
 }

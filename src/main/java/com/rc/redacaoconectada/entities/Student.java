@@ -1,5 +1,6 @@
 package com.rc.redacaoconectada.entities;
 
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
