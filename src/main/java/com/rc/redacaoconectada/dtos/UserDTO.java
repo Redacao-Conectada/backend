@@ -45,6 +45,8 @@ public class UserDTO implements Serializable {
   @NotBlank(message = "Nome da cidade requerido")
   private String city;
 
+  private String image;
+
   private final List<RoleDTO> roles = new ArrayList<>();
 
   private final List<EssayDTO> essays = new ArrayList<>();
@@ -59,6 +61,7 @@ public class UserDTO implements Serializable {
     this.schoolName = user.getSchoolName();
     this.state = user.getState();
     this.city = user.getCity();
+    this.image = user.getImage();
 
     user.getRoles().forEach(role -> this.roles.add(new RoleDTO(role)));
     for(Essay e : user.getEssays()) {
