@@ -1,12 +1,20 @@
 package com.rc.redacaoconectada.services;
 
-import com.rc.redacaoconectada.dtos.*;
-import com.rc.redacaoconectada.entities.*;
-import com.rc.redacaoconectada.repositories.*;
+import com.rc.redacaoconectada.dtos.UserDTO;
+import com.rc.redacaoconectada.dtos.UserInsertDTO;
+import com.rc.redacaoconectada.entities.Role;
+import com.rc.redacaoconectada.entities.Student;
+import com.rc.redacaoconectada.entities.User;
+import com.rc.redacaoconectada.repositories.RoleRepository;
+import com.rc.redacaoconectada.repositories.UserRepository;
 import com.rc.redacaoconectada.services.exceptions.ResourceNotFoundException;
+import com.rc.redacaoconectada.dtos.*;
+import com.rc.redacaoconectada.repositories.*;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -24,16 +32,17 @@ public class UserService implements UserDetailsService {
   private BCryptPasswordEncoder passwordEncoder;
 
   @Autowired
-  private EssayRepository essayRepository;
-
-  @Autowired
   private UserRepository repository;
 
   @Autowired
   private RoleRepository roleRepository;
 
-  @Autowired
-  private ChangeRoleRequestRepository changeRoleRequestRepository;
+  @Transactional(readOnly = true)
+  public Page<UserDTO> findUserEssays(String userName, PageRequest pageRequest) {
+    log.info("method=findUserEssays, msg=find essays of username: {} ", userName);
+    Page<User> userEssays = repository.findUserByName(userName, pageRequest);
+    return userEssays.map(UserDTO::new);
+  }
 
   @Transactional
   public UserDTO insert(UserInsertDTO user) {
@@ -61,6 +70,18 @@ public class UserService implements UserDetailsService {
     student.getRoles().add(role);
   }
 
+  @Transactional(readOnly = true)
+  public Page<UserDTO> findAllPaged(PageRequest pagerequest){
+    Page<User> user = repository.findAll(pagerequest);
+    return user.map(UserDTO::new);
+  }
+
+  @Transactional(readOnly = true)
+  public UserDTO findById(Long id){
+    Optional<User> obj = repository.findById(id);
+    User user = obj.orElseThrow(() -> new ResourceNotFoundException("User Not Found!"));
+    return new UserDTO(user);
+  }
 
 
   @Override

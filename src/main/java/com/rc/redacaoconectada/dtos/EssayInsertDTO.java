@@ -18,9 +18,12 @@ public class EssayInsertDTO implements Serializable {
     @NotBlank(message = "Body requerido")
     private String body;
 
+    private Boolean isAnon;
+
     public EssayInsertDTO(Essay essay) {
         this.idUser = essay.getUser().getId();
         this.body = essay.getBody();
+        this.isAnon = essay.getIsAnon();
     }
 
 }

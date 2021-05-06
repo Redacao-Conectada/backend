@@ -1,8 +1,6 @@
 package com.rc.redacaoconectada.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -30,7 +28,7 @@ public class User implements Serializable, UserDetails {
 
   private String name;
 
-  @Column(unique = true)
+  //@Column(unique = true)
   private String email;
 
   private String password;

@@ -1,5 +1,6 @@
 package com.rc.redacaoconectada.dtos;
 
+import com.rc.redacaoconectada.entities.Essay;
 import com.rc.redacaoconectada.entities.User;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -48,6 +49,8 @@ public class UserDTO implements Serializable {
 
   private final List<RoleDTO> roles = new ArrayList<>();
 
+  private final List<EssayDTO> essays = new ArrayList<>();
+
   public UserDTO(User user) {
     this.id = user.getId();
     this.cpf = user.getCpf();
@@ -61,6 +64,11 @@ public class UserDTO implements Serializable {
     this.image = user.getImage();
 
     user.getRoles().forEach(role -> this.roles.add(new RoleDTO(role)));
+    for(Essay e : user.getEssays()) {
+      if(!e.getIsAnon()) {
+        this.essays.add(new EssayDTO(e));
+      }
+    }
   }
 
 }
