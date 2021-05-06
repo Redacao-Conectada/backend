@@ -1,5 +1,6 @@
 package com.rc.redacaoconectada.controllers;
 
+import com.rc.redacaoconectada.dtos.ChangeRoleDTO;
 import com.rc.redacaoconectada.dtos.UserDTO;
 import com.rc.redacaoconectada.entities.ChangeRoleRequest;
 import com.rc.redacaoconectada.entities.User;
@@ -31,6 +32,18 @@ public class AdmController {
 
         PageRequest pageRequest = PageRequest.of(page, usersPerPage, Sort.Direction.valueOf(direction),name);
         Page<UserDTO> list = userService.findAllPaged(pageRequest);
+        return ResponseEntity.ok().body(list);
+
+    }
+
+    @GetMapping("/users/requests")
+    public ResponseEntity<Page<ChangeRoleDTO>>findAllPagedChangeRoleRequest(@RequestParam(value = "page", defaultValue = "0") Integer page,
+                                                     @RequestParam(value = "requestsPerPage", defaultValue = "12") Integer requestsPerPage,
+                                                     @RequestParam(value = "direction", defaultValue = "ASC") String direction,
+                                                                                @RequestParam(value = "orderBy", defaultValue = "id") String id){
+
+        PageRequest pageRequest = PageRequest.of(page, requestsPerPage, Sort.Direction.valueOf(direction), id);
+        Page<ChangeRoleDTO> list = changeRoleService.findAllPagedChangeRoleRequest(pageRequest);
         return ResponseEntity.ok().body(list);
 
     }

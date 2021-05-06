@@ -25,6 +25,13 @@ public class ChangeRoleRequest implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @ToString.Exclude
     private User user;
+
+    public ChangeRoleRequest(ChangeRoleRequest changeRoleRequest) {
+        this.id = changeRoleRequest.getId();
+        this.school_registration = changeRoleRequest.getSchool_registration();
+        this.school_name_as_teacher = changeRoleRequest.getSchool_name_as_teacher();
+        this.proof_img = changeRoleRequest.getProof_img();
+
+    }
 }

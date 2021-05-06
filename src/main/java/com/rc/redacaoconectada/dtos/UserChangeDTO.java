@@ -1,8 +1,6 @@
 package com.rc.redacaoconectada.dtos;
 
-import com.rc.redacaoconectada.services.validation.UserInsertValid;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
