@@ -11,12 +11,12 @@ INSERT INTO tb_role (authority) VALUES ('ROLE_ADMIN');
 -- Users Roles
 INSERT INTO tb_user_role (user_id, role_id) VALUES (1, 1);
 INSERT INTO tb_user_role (user_id, role_id) VALUES (2, 1);
--- INSERT INTO tb_user_role (user_id, role_id) VALUES (2, 2);
+INSERT INTO tb_user_role (user_id, role_id) VALUES (2, 2);
 INSERT INTO tb_user_role (user_id, role_id) VALUES (3, 1);
 
 -- Inheritance
 INSERT INTO tb_student (id) VALUES (1);
---INSERT INTO tb_teacher (id, school_registration, school_name_as_teacher, proof_img) VALUES (2, '456543', 'Fera Colegio e Curso', 'https://www.evidenceexplained.com/system/files/user/user199/Proof-transparent%20canstockphoto12881592.jpg');
+INSERT INTO tb_teacher (id, school_registration, school_name_as_teacher, proof_img) VALUES (2, '456543', 'Fera Colegio e Curso', 'https://www.evidenceexplained.com/system/files/user/user199/Proof-transparent%20canstockphoto12881592.jpg');
 INSERT INTO tb_admin (id) VALUES (1);
 
 -- Essays
