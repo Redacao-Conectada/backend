@@ -44,6 +44,12 @@ public class EssayController {
         return ResponseEntity.ok().body(essaydto);
     }
 
+    @GetMapping(value = "/users/{id}")
+    public ResponseEntity<List<EssayDTO>> findUserEssaysById(@PathVariable("id") Long id) {
+        List<EssayDTO> essays = service.findUserEssaysById(id);
+        return ResponseEntity.ok().body(essays);
+    }
+
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteEssayById(@PathVariable("id") Long id) {
 

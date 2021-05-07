@@ -1,12 +1,10 @@
 package com.rc.redacaoconectada.controllers;
 
 import com.rc.redacaoconectada.dtos.*;
-import com.rc.redacaoconectada.entities.Essay;
 import com.rc.redacaoconectada.services.ChangeRoleService;
 import com.rc.redacaoconectada.services.CommentService;
 
 import com.rc.redacaoconectada.services.UserService;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,7 +16,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "/users")
@@ -39,6 +36,12 @@ public class UserController {
     URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
             .buildAndExpand(user.getId()).toUri();
     return ResponseEntity.created(uri).body(dto);
+  }
+
+  @GetMapping(value = "/{id}")
+  public ResponseEntity<UserDTO> findById(@PathVariable("id") Long id){
+    UserDTO userDto = service.findById(id);
+    return ResponseEntity.ok().body(userDto);
   }
 
   @GetMapping("/essays")

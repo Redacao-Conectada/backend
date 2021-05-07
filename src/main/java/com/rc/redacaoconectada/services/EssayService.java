@@ -11,6 +11,7 @@ import com.rc.redacaoconectada.repositories.EssayRepository;
 import com.rc.redacaoconectada.repositories.UserRepository;
 import com.rc.redacaoconectada.services.exceptions.DatabaseException;
 import com.rc.redacaoconectada.services.exceptions.ResourceNotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -20,7 +21,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class EssayService {
 
@@ -49,6 +52,16 @@ public class EssayService {
         Essay essay = essayBD.orElseThrow(() -> new ResourceNotFoundException("Essay not found"));
 
         return new EssayDTO(essay);
+    }
+
+    @Transactional(readOnly = true)
+    public List<EssayDTO> findUserEssaysById(Long id) {
+        log.info("method=findUserEssaysById, msg=find user id {} essays", id);
+        Optional<User> obj = userRepository.findById(id);
+        User user = obj.orElseThrow(() -> new ResourceNotFoundException("User not found, id: " + id));
+        List<Essay> essays = essayRepository.find(user);
+
+        return essays.stream().map(EssayDTO::new).collect(Collectors.toList());
     }
 
     public void deleteEssayById(Long id) {
