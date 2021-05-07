@@ -32,17 +32,23 @@ INSERT INTO tb_Comment (user_id, essay_id, body, up_vote) VALUES (1, 1, 'Pode me
 INSERT INTO tb_change_role_request (user_id, proof_img, school_name_as_teacher,  school_registration) VALUES (2, 'https://www.evidenceexplained.com/system/files/user/user199/Proof-transparent%20canstockphoto12881592.jpg', 'Fera Colegio e Curso', '456543');
 
 -- Corrections
-INSERT INTO tb_correction (teacher_id, essay_id, created_date, first_competence_grade, first_grade, second_competence_grade,
-second_grade, third_competence_grade, third_grade, fourth_competence_grade, fourth_grade, fifth_competence_grade, fifth_grade)
-VALUES (2, 3, TIMESTAMP  WITH TIME ZONE '2020-07-13T20:50:07.12345Z', 3, 120, 3, 120, 3, 120, 3, 120, 3, 120);
+INSERT INTO tb_correction (teacher_id, essay_id, created_date, first_competence_comments, first_competence_grade, second_competence_comments,
+second_competence_grade, third_competence_comments, third_competence_grade, fourth_competence_comments, fourth_competence_grade,
+fifth_competence_comments, fifth_competence_grade)
+VALUES (2, 3, TIMESTAMP  WITH TIME ZONE '2020-07-13T20:50:07.12345Z', 'Normal', 120, 'Normal', 120, 'Normal', 120, 'Normal', 120,
+'Normal', 120);
 
-INSERT INTO tb_correction (teacher_id, essay_id, created_date, first_competence_grade, first_grade, second_competence_grade,
-second_grade, third_competence_grade, third_grade, fourth_competence_grade, fourth_grade, fifth_competence_grade, fifth_grade)
-VALUES (2, 1, TIMESTAMP  WITH TIME ZONE '2020-07-13T20:50:07.12345Z', 0, 0, 1, 40, 2, 80, 3, 120, 4, 160);
+INSERT INTO tb_correction (teacher_id, essay_id, created_date, first_competence_comments, first_competence_grade, second_competence_comments,
+second_competence_grade, third_competence_comments, third_competence_grade, fourth_competence_comments, fourth_competence_grade,
+fifth_competence_comments, fifth_competence_grade)
+VALUES (2, 1, TIMESTAMP  WITH TIME ZONE '2020-07-13T20:50:07.12345Z', 'Horrible', 0, 'Awful', 40, 'Bad', 80, 'Normal', 120,
+'Good', 160);
 
-INSERT INTO tb_correction (teacher_id, essay_id, created_date, first_competence_grade, first_grade, second_competence_grade,
-second_grade, third_competence_grade, third_grade, fourth_competence_grade, fourth_grade, fifth_competence_grade, fifth_grade)
-VALUES (2, 2, TIMESTAMP  WITH TIME ZONE '2020-07-13T20:50:07.12345Z', 5, 200, 5, 200, 5, 200, 5, 200, 5, 200);
+INSERT INTO tb_correction (teacher_id, essay_id, created_date, first_competence_comments, first_competence_grade, second_competence_comments,
+second_competence_grade, third_competence_comments, third_competence_grade, fourth_competence_comments, fourth_competence_grade,
+fifth_competence_comments, fifth_competence_grade)
+VALUES (2, 2, TIMESTAMP  WITH TIME ZONE '2020-07-13T20:50:07.12345Z', 'Excelent', 200, 'Excelent', 200, 'Excelent', 200,
+'Excelent', 200, 'Excelent', 200);
 
 -- UPDATE em essays
 UPDATE tb_essay SET correction_id = 1 WHERE id = 3;
