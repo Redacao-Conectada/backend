@@ -17,15 +17,15 @@ public class EssayCommentDTO implements Serializable {
 
     private int upVote;
 
-    private UserDTO userDTO;
+    private Long author;
 
-    private  EssayDTO essayDTO;
+    private  Long essayId;
 
     public EssayCommentDTO(Comment comment) {
         this.id = comment.getId();
-        this.userDTO = new UserDTO(comment.getUser());
+        this.author = comment.getUser().getId();
         this.upVote = comment.getUpVote();
-        this.essayDTO = new EssayDTO(comment.getEssay());
+        this.essayId = comment.getEssay().getId();
         this.body = comment.getBody();
     }
 
