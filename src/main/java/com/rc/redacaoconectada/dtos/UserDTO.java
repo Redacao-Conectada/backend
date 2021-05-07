@@ -49,7 +49,7 @@ public class UserDTO implements Serializable {
 
   private final List<RoleDTO> roles = new ArrayList<>();
 
-  private final List<EssayDTO> essays = new ArrayList<>();
+  private final List<Long> essaysId = new ArrayList<>();
 
   public UserDTO(User user) {
     this.id = user.getId();
@@ -66,7 +66,7 @@ public class UserDTO implements Serializable {
     user.getRoles().forEach(role -> this.roles.add(new RoleDTO(role)));
     for(Essay e : user.getEssays()) {
       if(!e.getIsAnon()) {
-        this.essays.add(new EssayDTO(e));
+        this.essaysId.add(e.getId());
       }
     }
   }
