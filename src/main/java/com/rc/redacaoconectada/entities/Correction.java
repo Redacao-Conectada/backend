@@ -29,16 +29,16 @@ public class Correction {
 
     @Embedded
     @AttributeOverrides(value = {
-            @AttributeOverride(name = "competenceGrade1", column = @Column(name = "first_competence_grade")),
-            @AttributeOverride(name = "grade1", column = @Column(name = "first_grade")),
-            @AttributeOverride(name = "competenceGrade2", column = @Column(name = "second_competence_grade")),
-            @AttributeOverride(name = "grade2", column = @Column(name = "second_grade")),
-            @AttributeOverride(name = "competenceGrade3", column = @Column(name = "third_competence_grade")),
-            @AttributeOverride(name = "grade3", column = @Column(name = "third_grade")),
-            @AttributeOverride(name = "competenceGrade4", column = @Column(name = "fourth_competence_grade")),
-            @AttributeOverride(name = "grade4", column = @Column(name = "fourth_grade")),
-            @AttributeOverride(name = "competenceGrade5", column = @Column(name = "fifth_competence_grade")),
-            @AttributeOverride(name = "grade5", column = @Column(name = "fifth_grade"))
+            @AttributeOverride(name = "competence1Comments", column = @Column(name = "first_competence_comments")),
+            @AttributeOverride(name = "competence1Grade", column = @Column(name = "first_competence_grade")),
+            @AttributeOverride(name = "competence2Comments", column = @Column(name = "second_competence_comments")),
+            @AttributeOverride(name = "competence2Grade", column = @Column(name = "second_competence_grade")),
+            @AttributeOverride(name = "competence3Comments", column = @Column(name = "third_competence_comments")),
+            @AttributeOverride(name = "competence3Grade", column = @Column(name = "third_competence_grade")),
+            @AttributeOverride(name = "competence4Comments", column = @Column(name = "fourth_competence_comments")),
+            @AttributeOverride(name = "competence4Grade", column = @Column(name = "fourth_competence_grade")),
+            @AttributeOverride(name = "competence5Comments", column = @Column(name = "fifth_competence_comments")),
+            @AttributeOverride(name = "competence5Grade", column = @Column(name = "fifth_competence_grade"))
     })
     private Competence competences;
 

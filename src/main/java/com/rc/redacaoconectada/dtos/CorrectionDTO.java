@@ -16,9 +16,9 @@ public class CorrectionDTO implements Serializable {
     private static final long serialVersionUID = 1L;
     private Long id;
 
-    private UserDTO teacherDTO;
+    private Long teacherId;
 
-    private EssayDTO essayDTO;
+    private Long essayId;
 
     private Instant createdDate;
 
@@ -29,8 +29,8 @@ public class CorrectionDTO implements Serializable {
     public CorrectionDTO(Correction correction) {
         this.id = correction.getId();
         this.createdDate = correction.getCreated_date();
-        this.teacherDTO = new UserDTO(correction.getTeacher());
-        this.essayDTO = new EssayDTO(correction.getEssay());
+        this.teacherId = correction.getTeacher().getId();
+        this.essayId = correction.getEssay().getId();
         this.competences = correction.getCompetences();
         this.correctionGrade = correction.correctionGrade();
     }

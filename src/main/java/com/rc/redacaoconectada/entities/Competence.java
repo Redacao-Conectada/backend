@@ -15,36 +15,36 @@ import javax.validation.constraints.NotNull;
 public class Competence {
 
     @NotNull
-    private Integer competenceGrade1;
+    private String competence1Comments;
 
     @NotNull
-    private Integer grade1;
+    private Integer competence1Grade;
 
     @NotNull
-    private Integer competenceGrade2;
+    private String competence2Comments;
 
     @NotNull
-    private Integer grade2;
+    private Integer competence2Grade;
 
     @NotNull
-    private Integer competenceGrade3;
+    private String competence3Comments;
 
     @NotNull
-    private Integer grade3;
+    private Integer competence3Grade;
 
     @NotNull
-    private Integer competenceGrade4;
+    private String competence4Comments;
 
     @NotNull
-    private Integer grade4;
+    private Integer competence4Grade;
 
     @NotNull
-    private Integer competenceGrade5;
+    private String competence5Comments;
 
     @NotNull
-    private Integer grade5;
+    private Integer competence5Grade;
 
     public Integer getGradesSum(){
-        return this.grade1 + this.grade2 + this.grade3 + this.grade4 + this.grade5;
+        return this.competence1Grade + this.competence2Grade + this.competence3Grade + this.competence4Grade + this.competence5Grade;
     }
 }
