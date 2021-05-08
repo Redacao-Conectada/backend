@@ -60,7 +60,8 @@ public class EssayController {
 
     @GetMapping(value = "/{id}/comments")
     public ResponseEntity<List<EssayCommentDTO>> getComments(@Valid @PathVariable("id") Long id){
-        return new ResponseEntity<List<EssayCommentDTO>>(service.listComments(id), HttpStatus.OK);
+        List<EssayCommentDTO> essaysComents = service.listComments(id);
+        return ResponseEntity.ok().body(essaysComents);
     }
 
     @PostMapping

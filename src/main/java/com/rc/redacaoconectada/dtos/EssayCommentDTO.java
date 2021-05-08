@@ -2,11 +2,15 @@ package com.rc.redacaoconectada.dtos;
 
 import com.rc.redacaoconectada.entities.Comment;
 import com.rc.redacaoconectada.entities.User;
-import lombok.Getter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
-@Getter
+@Data
+@NoArgsConstructor
 public class EssayCommentDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -17,16 +21,25 @@ public class EssayCommentDTO implements Serializable {
 
     private int upVote;
 
+    private final Map<String, Object> userInfo = new HashMap<>();
+
     private UserDTO userDTO;
 
-    private  EssayDTO essayDTO;
+    private Long essayId;
 
     public EssayCommentDTO(Comment comment) {
         this.id = comment.getId();
+        mapUser(comment.getUser());
         this.userDTO = new UserDTO(comment.getUser());
         this.upVote = comment.getUpVote();
-        this.essayDTO = new EssayDTO(comment.getEssay());
+        this.essayId = comment.getEssay().getId();
         this.body = comment.getBody();
+    }
+
+    private void mapUser(User user) {
+        userInfo.put("id", user.getId());
+        userInfo.put("name", user.getName());
+        userInfo.put("image", user.getImage());
     }
 
 }
