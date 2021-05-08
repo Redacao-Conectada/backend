@@ -102,6 +102,7 @@ public class EssayService {
 
         essay.setUser(user);
         essay.setUpVote(0);
+        essay.setTitle(essayInsertDTO.getTitle());
         essay.setBody(essayInsertDTO.getBody());
 
         return essay;
@@ -154,6 +155,7 @@ public class EssayService {
 
             if (user.getId().equals(essay.getUser().getId())) {
                 essay.setBody(essayInsertDTO.getBody());
+                essay.setTitle(essayInsertDTO.getTitle());
                 essay = essayRepository.save(essay);
             }else {
                 throw new ResourceNotFoundException("Only the User I create can update");

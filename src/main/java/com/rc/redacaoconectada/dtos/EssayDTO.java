@@ -13,6 +13,8 @@ public class EssayDTO implements Serializable {
     private static final long serialVersionUID = 1L;
     private Long id;
 
+    private String title;
+
     private Long userId;
 
     private Integer upVote;
