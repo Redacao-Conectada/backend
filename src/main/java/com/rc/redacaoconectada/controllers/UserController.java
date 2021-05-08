@@ -72,7 +72,7 @@ public class UserController {
     }
   }
   
-  @PostMapping("/comment/{id}")
+  @PostMapping("/comment")
   public ResponseEntity<EssayCommentDTO> insertComment(@Valid @RequestBody EssayCommentInsertDTO comment) {
     EssayCommentDTO dto = commentService.insertComment(comment);
     URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
