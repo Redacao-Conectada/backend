@@ -24,6 +24,8 @@ public class Essay implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String title;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
