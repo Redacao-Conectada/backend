@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.time.Instant;
 
 @Data
 @NoArgsConstructor
@@ -31,6 +32,8 @@ public class EssayDTO implements Serializable {
 
     private String authorName;
 
+    private Instant createdAt;
+
 
     public EssayDTO(Essay essay) {
         this.id = essay.getId();
@@ -41,6 +44,7 @@ public class EssayDTO implements Serializable {
         this.isAnon = essay.getIsAnon();
         this.authorImage = essay.getUser().getImage();
         this.authorName = essay.getUser().getName();
+        this.createdAt = essay.getCreatedAt();
         correctionVerify(essay);
     }
 
