@@ -171,9 +171,13 @@ public class EssayService {
         Set<Comment> comments = essay.getComments();
 
         List<EssayCommentDTO> queryResult = new ArrayList<EssayCommentDTO>();
+
         for(Comment comment : comments){
             queryResult.add(new EssayCommentDTO(comment));
         }
+
+        Collections.sort(queryResult);
+
         return queryResult;
     }
 }
