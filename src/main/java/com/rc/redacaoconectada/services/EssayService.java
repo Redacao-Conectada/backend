@@ -6,7 +6,6 @@ import com.rc.redacaoconectada.dtos.EssayInsertDTO;
 import com.rc.redacaoconectada.entities.Comment;
 import com.rc.redacaoconectada.entities.Essay;
 import com.rc.redacaoconectada.entities.User;
-import com.rc.redacaoconectada.repositories.CommentRepository;
 import com.rc.redacaoconectada.repositories.EssayRepository;
 import com.rc.redacaoconectada.repositories.UserRepository;
 import com.rc.redacaoconectada.services.exceptions.DatabaseException;
@@ -164,15 +163,13 @@ public class EssayService {
             return new EssayDTO(essay);
 
     }
-    /* Retorna uma lista com todos os comentários de uma Essay de ID = id */
+
     public List<EssayCommentDTO> listComments(Long id){
         Essay essay = essayRepository.getOne(id);
         Set<Comment> comments = essay.getComments();
 
-        List<EssayCommentDTO> queryResult = new ArrayList<EssayCommentDTO>();
-        for(Comment comment : comments){
-            queryResult.add(new EssayCommentDTO(comment));
-        }
+        List<EssayCommentDTO> queryResult = new ArrayList<>();
+        comments.forEach(comment -> queryResult.add(new EssayCommentDTO()));
         return queryResult;
     }
 }

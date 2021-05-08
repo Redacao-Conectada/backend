@@ -13,13 +13,13 @@ public class UserChangeRoleDTO implements Serializable {
     private String schoolRegistration;
     private String schoolNameAsTeacher;
     private String proofImg;
-    private UserDTO userDTO;
+    private Long userId;
 
     public UserChangeRoleDTO(ChangeRoleRequest changeRoleRequest) {
         this.id = changeRoleRequest.getId();
         this.proofImg = changeRoleRequest.getProof_img();
         this.schoolNameAsTeacher = changeRoleRequest.getSchool_name_as_teacher();
         this.schoolRegistration = changeRoleRequest.getSchool_registration();
-        this.userDTO = new UserDTO(changeRoleRequest.getUser());
+        this.userId = changeRoleRequest.getUser().getId();
     }
 }
