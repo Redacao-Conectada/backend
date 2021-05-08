@@ -15,6 +15,8 @@ public class EssayInsertDTO implements Serializable {
     @NotNull(message = "IdUser requerido")
     private Long idUser;
 
+    private String title;
+
     @NotBlank(message = "Body requerido")
     private String body;
 
