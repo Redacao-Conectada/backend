@@ -39,7 +39,7 @@ public class Essay implements Serializable {
     @Column(columnDefinition = "TEXT")
     private String body;
 
-    @OneToMany(mappedBy = "essay")
+    @OneToMany(mappedBy = "essay", fetch = FetchType.EAGER)
     private final Set<Comment> comments = new HashSet<>();
 
     private Instant createdAt;
