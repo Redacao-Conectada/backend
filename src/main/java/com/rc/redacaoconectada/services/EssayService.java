@@ -165,11 +165,15 @@ public class EssayService {
     }
 
     public List<EssayCommentDTO> listComments(Long id){
-        Essay essay = essayRepository.getOne(id);
+        Optional<Essay> essayBD = this.essayRepository.findById(id);
+        Essay essay = essayBD.orElseThrow(() -> new ResourceNotFoundException("Essay not found"));
+
         Set<Comment> comments = essay.getComments();
 
-        List<EssayCommentDTO> queryResult = new ArrayList<>();
-        comments.forEach(comment -> queryResult.add(new EssayCommentDTO()));
+        List<EssayCommentDTO> queryResult = new ArrayList<EssayCommentDTO>();
+        for(Comment comment : comments){
+            queryResult.add(new EssayCommentDTO(comment));
+        }
         return queryResult;
     }
 }
