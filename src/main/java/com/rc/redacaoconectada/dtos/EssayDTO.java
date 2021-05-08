@@ -13,7 +13,7 @@ public class EssayDTO implements Serializable {
     private static final long serialVersionUID = 1L;
     private Long id;
 
-    private Long userId;
+    private Long author;
 
     private Integer upVote;
 
@@ -21,12 +21,25 @@ public class EssayDTO implements Serializable {
 
     private Boolean isAnon;
 
+    private Long correctionId;
+
+    private Integer grade;
+
+    private String authorImage;
+
+    private String authorName;
+
+
     public EssayDTO(Essay essay) {
         this.id = essay.getId();
-        this.userId = essay.getUser().getId();
+        this.author = essay.getUser().getId();
         this.upVote = essay.getUpVote();
         this.body = essay.getBody();
         this.isAnon = essay.getIsAnon();
+        this.correctionId = essay.getCorrection().getId();
+        this.grade = essay.getCorrection().correctionGrade();
+        this.authorImage = essay.getUser().getImage();
+        this.authorName = essay.getUser().getName();
     }
 
 }
