@@ -23,14 +23,11 @@ public class EssayCommentDTO implements Serializable {
 
     private final Map<String, Object> userInfo = new HashMap<>();
 
-    private UserDTO userDTO;
-
     private Long essayId;
 
     public EssayCommentDTO(Comment comment) {
         this.id = comment.getId();
         mapUser(comment.getUser());
-        this.userDTO = new UserDTO(comment.getUser());
         this.upVote = comment.getUpVote();
         this.essayId = comment.getEssay().getId();
         this.body = comment.getBody();
