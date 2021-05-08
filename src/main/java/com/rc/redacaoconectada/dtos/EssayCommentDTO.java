@@ -11,7 +11,7 @@ import java.util.Map;
 
 @Data
 @NoArgsConstructor
-public class EssayCommentDTO implements Serializable {
+public class EssayCommentDTO implements Serializable, Comparable<EssayCommentDTO> {
 
     private static final long serialVersionUID = 1L;
 
@@ -39,4 +39,8 @@ public class EssayCommentDTO implements Serializable {
         userInfo.put("image", user.getImage());
     }
 
+    @Override
+    public int compareTo(EssayCommentDTO o) {
+        return this.getId().compareTo(o.getId());
+    }
 }

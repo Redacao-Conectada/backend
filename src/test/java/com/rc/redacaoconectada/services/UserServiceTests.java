@@ -40,7 +40,7 @@ class UserServiceTests {
   @BeforeEach
   void setUp() throws Exception {
     existingUser = UserFactory.createUser();
-    existingUserEmail = "bob@gmail.com";
+    existingUserEmail = existingUser.getEmail();
     nonExistingUserEmail = "haha.2332@gmail.com";
     page = new PageImpl<>(List.of(existingUser));
 

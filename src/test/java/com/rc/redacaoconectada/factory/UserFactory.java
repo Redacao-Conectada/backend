@@ -15,7 +15,7 @@ public class UserFactory {
 
   public static User createUserStudent() {
     Role role = RoleFactory.createRoleStudent();
-    User user = new User(3L, "123.456.789.11", "Bob", "bob@gmail.com", "12345678", Instant.now(),
+    User user = new User(4L, "123.456.789.11", "Bob", "bob@gmail.com", "12345678", Instant.now(),
             "Superior Completo", "UFCG", "PB", "Patos", "");
     user.getRoles().add(role);
 
@@ -24,7 +24,7 @@ public class UserFactory {
 
   public static User createUserTeacher() {
     Role role = RoleFactory.createRoleTeacher();
-    User user = new User(3L, "123.456.789.11", "Bob", "bob@gmail.com", "12345678", Instant.now(),
+    User user = new User(5L, "123.456.789.11", "Bob", "bob@gmail.com", "12345678", Instant.now(),
             "Superior Completo", "UFCG", "PB", "Patos", "");
     user.getRoles().add(role);
 
@@ -33,7 +33,7 @@ public class UserFactory {
 
   public static User createUserAdmin() {
     Role role = RoleFactory.createRoleAdmin();
-    User user = new User(3L, "123.456.789.11", "Bob", "bob@gmail.com", "12345678", Instant.now(),
+    User user = new User(6L, "123.456.789.11", "Bob", "bob@gmail.com", "12345678", Instant.now(),
             "Superior Completo", "UFCG", "PB", "Patos", "");
     user.getRoles().add(role);
 
