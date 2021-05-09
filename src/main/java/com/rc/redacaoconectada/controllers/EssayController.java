@@ -25,13 +25,13 @@ public class EssayController {
     private EssayService service;
 
     @GetMapping
-    public ResponseEntity<Page<EssayFindAllDTO>> findAll(@RequestParam(value = "page", defaultValue = "0") Integer page,
+    public ResponseEntity<Page<EssayDTO>> findAll(@RequestParam(value = "page", defaultValue = "0") Integer page,
                                                          @RequestParam(value = "essayPerPage", defaultValue = "12") Integer essayPerPage,
                                                          @RequestParam(value = "direction", defaultValue = "ASC") String direction,
                                                          @RequestParam(value = "orderBy", defaultValue = "id") String id) {
 
         PageRequest pageRequest = PageRequest.of(page, essayPerPage, Sort.Direction.valueOf(direction), id);
-        Page<EssayFindAllDTO> essaydto = service.findAll(pageRequest);
+        Page<EssayDTO> essaydto = service.findAll(pageRequest);
 
         return ResponseEntity.ok().body(essaydto);
     }

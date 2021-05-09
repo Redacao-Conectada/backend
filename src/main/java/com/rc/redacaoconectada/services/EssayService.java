@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -36,11 +37,13 @@ public class EssayService {
     private AuthService authService;
 
     @Transactional(readOnly = true)
-    public Page<EssayFindAllDTO> findAll(PageRequest pageRequest) {
+    public Page<EssayDTO> findAll(PageRequest pageRequest) {
+
+        User user = authService.authenticated();
 
         Page<Essay> essaysBD = this.essayRepository.findAll(pageRequest);
 
-        return essaysBD.map(EssayFindAllDTO::new);
+        return essaysBD.map(x -> new EssayDTO(x, user));
     }
 
     @Transactional(readOnly = true)
@@ -52,9 +55,7 @@ public class EssayService {
 
         Essay essay = essayBD.orElseThrow(() -> new ResourceNotFoundException("Essay not found"));
 
-        boolean hasUserVoted = essay.getUserUpVotes().contains(user);
-
-        return new EssayDTO(essay, hasUserVoted);
+        return new EssayDTO(essay, user);
     }
 
     @Transactional(readOnly = true)
@@ -62,31 +63,10 @@ public class EssayService {
         log.info("method=findUserEssaysById, msg=find user id {} essays", id);
         Optional<User> obj = userRepository.findById(id);
         User user = obj.orElseThrow(() -> new ResourceNotFoundException("User not found, id: " + id));
+
         List<Essay> essays = essayRepository.find(user);
 
-        List<Boolean> userHasUpVotedEssays = checkIfUserUpVotedEssays(user, essays);
-
-        return fillEssayDTO(userHasUpVotedEssays, essays);
-    }
-
-    private List<EssayDTO> fillEssayDTO( List<Boolean> userHasUpVotedEssays, List<Essay> essays) {
-        List<EssayDTO> essaysDTO = new ArrayList<>();
-
-        for (int i = 0; i < essays.size(); i++){
-            EssayDTO essayDTO = new EssayDTO(essays.get(i),userHasUpVotedEssays.get(i));
-            essaysDTO.add(essayDTO);
-        }
-        return essaysDTO;
-    }
-
-    private List<Boolean> checkIfUserUpVotedEssays(User user, List<Essay> essays) {
-        List<Boolean> usersHasUpVotedEssays = new ArrayList<>();
-
-        for (Essay e: essays) {
-            usersHasUpVotedEssays.add(e.getUserUpVotes().contains(user));
-        }
-
-        return usersHasUpVotedEssays;
+        return essays.stream().map(e -> new EssayDTO(e, user)).collect(Collectors.toList());
     }
 
     public void deleteEssayById(Long id) {
@@ -110,11 +90,13 @@ public class EssayService {
     @Transactional
     public EssayDTO insert(EssayInsertDTO essayInsertDTO) {
 
+        User user = authService.authenticated();
+
         Essay essay = mapsEssayInsertDTOtoEssay(essayInsertDTO);
 
         essay = this.essayRepository.save(essay);
 
-        return new EssayDTO(essay, false);
+        return new EssayDTO(essay, user);
     }
 
     private Essay mapsEssayInsertDTOtoEssay(EssayInsertDTO essayInsertDTO){
@@ -168,25 +150,26 @@ public class EssayService {
 
     @Transactional
     public EssayDTO update(Long id, EssayInsertDTO essayInsertDTO) {
-            Optional<Essay> essayBD = this.essayRepository.findById(id);
-            Essay essay = essayBD.orElseThrow(() -> new ResourceNotFoundException("Essay not found"));
 
-            if (essay.getCorrection() != null) {
-                throw new ResourceNotFoundException("Update is not possible, Essay in correction");
-            }
+        Optional<Essay> essayBD = this.essayRepository.findById(id);
+        Essay essay = essayBD.orElseThrow(() -> new ResourceNotFoundException("Essay not found"));
 
-            Optional<User> userBD = userRepository.findById(essayInsertDTO.getIdUser());
-            User user = userBD.orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        if (essay.getCorrection() != null) {
+            throw new ResourceNotFoundException("Update is not possible, Essay in correction");
+        }
 
-            if (user.getId().equals(essay.getUser().getId())) {
-                essay.setBody(essayInsertDTO.getBody());
-                essay.setTitle(essayInsertDTO.getTitle());
-                essay = essayRepository.save(essay);
-            }else {
-                throw new ResourceNotFoundException("Only the User I create can update");
-            }
+        Optional<User> userBD = userRepository.findById(essayInsertDTO.getIdUser());
+        User user = userBD.orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
-            return new EssayDTO(essay, false);
+        if (user.getId().equals(essay.getUser().getId())) {
+            essay.setBody(essayInsertDTO.getBody());
+            essay.setTitle(essayInsertDTO.getTitle());
+            essay = essayRepository.save(essay);
+        }else {
+            throw new ResourceNotFoundException("Only the User I create can update");
+        }
+
+        return new EssayDTO(essay, user);
 
     }
 
