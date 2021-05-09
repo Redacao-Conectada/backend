@@ -44,7 +44,7 @@ public class Essay implements Serializable {
 
     private Instant createdAt;
   
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "tb_essay_user_upvote",
                joinColumns = @JoinColumn(name = "essay_id"),
                inverseJoinColumns = @JoinColumn(name = "user_id"))
