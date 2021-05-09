@@ -1,13 +1,7 @@
 package com.rc.redacaoconectada.services;
 
-import com.rc.redacaoconectada.dtos.ChangeRoleDTO;
-import com.rc.redacaoconectada.dtos.UserChangeRoleDTO;
-import com.rc.redacaoconectada.dtos.UserChangeRoleInsertDTO;
-import com.rc.redacaoconectada.dtos.UserDTO;
-import com.rc.redacaoconectada.entities.ChangeRoleRequest;
-import com.rc.redacaoconectada.entities.Role;
-import com.rc.redacaoconectada.entities.Teacher;
-import com.rc.redacaoconectada.entities.User;
+import com.rc.redacaoconectada.dtos.*;
+import com.rc.redacaoconectada.entities.*;
 import com.rc.redacaoconectada.repositories.ChangeRoleRequestRepository;
 import com.rc.redacaoconectada.repositories.RoleRepository;
 import com.rc.redacaoconectada.repositories.UserRepository;
@@ -31,6 +25,9 @@ public class ChangeRoleService {
 
     @Autowired
     private RoleRepository roleRepository;
+
+    @Autowired
+    private AuthService authService;
 
     @Transactional
     public UserChangeRoleDTO requestChangeRole(UserChangeRoleInsertDTO requestChangeRole) {
@@ -112,5 +109,34 @@ public class ChangeRoleService {
         teacher.getRoles().add(role);
         Role role2 = roleRepository.getOne(2L);
         teacher.getRoles().add(role2);
+    }
+
+    public Page<UserChangeRoleDTO> findAll(PageRequest pageRequest) {
+        User user = authService.authenticated();
+
+        checkIfUserIsAdmin(user);
+
+        Page<ChangeRoleRequest> changeRoleBD = this.changeRoleRequestRepository.findAll(pageRequest);
+
+        return changeRoleBD.map(UserChangeRoleDTO::new);
+    }
+
+    private void checkIfUserIsAdmin(User user) {
+        if (user == null){
+            throw new ResourceNotFoundException("User not found");
+        }
+        boolean checkRoleAdmin = false;
+        try {
+            for (Role r: user.getRoles()){
+                if (r.getAuthority().equals("ROLE_ADMIN")){
+                    checkRoleAdmin = true;
+                }
+            }
+        }catch(NullPointerException npe){
+            throw new ResourceNotFoundException("User doesn't have role");
+        }
+        if (!checkRoleAdmin){
+            throw new ResourceNotFoundException("User doesn't have permission");
+        }
     }
 }
