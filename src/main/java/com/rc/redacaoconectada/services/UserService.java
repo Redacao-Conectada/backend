@@ -96,20 +96,16 @@ public class UserService implements UserDetailsService {
     return user;
   }
 
-  public UserDTO updateUser(UserChangeDTO newUser) throws UsernameNotFoundException {
+  public UserDTO updateUser(Long id, UserChangeDTO newUser) throws UsernameNotFoundException {
+    Optional<User> obj = repository.findById(id);
+    User user = obj.orElseThrow(() -> {
+      log.error("method=loadUserByUsername, msg=user {} not found", id);
+      throw new ResourceNotFoundException("User not found: " + id);
+    });
 
-    User u = repository.findByEmail(newUser.getEmail());
-
-    if (u == null) {
-      log.error("method=loadUserByUsername, msg=user {} not found", newUser.getNewUserName());
-      throw new UsernameNotFoundException("Email not found");
-    }
-
-    u.setImage(newUser.getImage());
-    u.setName(newUser.getNewUserName());
-
-    repository.save(u);
-
-    return new UserDTO(u);
+    user.setName(newUser.getNewUserName());
+    user.setImage(newUser.getImage());
+    user = repository.save(user);
+    return new UserDTO(user);
   }
 }

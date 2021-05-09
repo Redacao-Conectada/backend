@@ -1,18 +1,14 @@
 package com.rc.redacaoconectada.dtos;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class UserChangeDTO extends UserDTO{
+@AllArgsConstructor
+public class UserChangeDTO {
 
     private String newUserName;
     private String image;
-
-    public UserChangeDTO(String newUserName){
-        super();
-        this.newUserName = newUserName;
-        this.image = image;
-    }
 }

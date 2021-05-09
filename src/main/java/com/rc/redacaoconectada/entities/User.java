@@ -47,7 +47,7 @@ public class User implements Serializable, UserDetails {
   @Column(name = "image", length=1500000)
   private String image;
 
-  @OneToMany(mappedBy = "user")
+  @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
   private final List<Essay> essays = new ArrayList<>();
 
   @OneToMany(mappedBy = "essay")
