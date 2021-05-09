@@ -41,7 +41,7 @@ public class EssayServiceTests {
 
         Essay essay = existingEssay;
 
-        EssayDTO essayDTO = new EssayDTO(essay);
+        EssayDTO essayDTO = new EssayDTO(essay, false);
 
         assertNotNull(essayBD);
         assertEquals(essayDTO, essayBD);

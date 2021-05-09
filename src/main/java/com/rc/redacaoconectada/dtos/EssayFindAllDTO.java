@@ -1,6 +1,7 @@
 package com.rc.redacaoconectada.dtos;
 
 import com.rc.redacaoconectada.entities.Essay;
+import com.rc.redacaoconectada.entities.User;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,7 +10,7 @@ import java.time.Instant;
 
 @Data
 @NoArgsConstructor
-public class EssayDTO implements Serializable {
+public class EssayFindAllDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private Long id;
@@ -41,7 +42,7 @@ public class EssayDTO implements Serializable {
     private boolean hasUserVoted;
 
 
-    public EssayDTO(Essay essay, boolean hasUserVoted) {
+    public EssayFindAllDTO(Essay essay) {
         this.id = essay.getId();
         this.title = essay.getTitle();
         this.author = essay.getUser().getId();
@@ -53,7 +54,6 @@ public class EssayDTO implements Serializable {
         this.createdAt = essay.getCreatedAt();
         this.totalUpVote = essay.getQuantityUpVotes();
         this.totalComments = essay.getQuantityComments();
-        this.hasUserVoted = hasUserVoted;
         correctionVerify(essay);
     }
 

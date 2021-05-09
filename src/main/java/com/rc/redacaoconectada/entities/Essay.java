@@ -64,4 +64,12 @@ public class Essay implements Serializable {
     public void removeUserUpVotes (User user) {
         userUpVotes.remove(user);
     }
+
+    public Integer getQuantityUpVotes(){
+        return userUpVotes.size();
+    }
+
+    public Integer getQuantityComments(){
+        return comments.size();
+    }
 }

@@ -3,6 +3,7 @@ package com.rc.redacaoconectada.services;
 import com.rc.redacaoconectada.dtos.EssayCommentDTO;
 import com.rc.redacaoconectada.dtos.EssayDTO;
 import com.rc.redacaoconectada.dtos.EssayInsertDTO;
+import com.rc.redacaoconectada.dtos.EssayFindAllDTO;
 import com.rc.redacaoconectada.entities.Comment;
 import com.rc.redacaoconectada.entities.Essay;
 import com.rc.redacaoconectada.entities.User;
@@ -20,7 +21,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -36,21 +36,25 @@ public class EssayService {
     private AuthService authService;
 
     @Transactional(readOnly = true)
-    public Page<EssayDTO> findAll(PageRequest pageRequest) {
+    public Page<EssayFindAllDTO> findAll(PageRequest pageRequest) {
 
         Page<Essay> essaysBD = this.essayRepository.findAll(pageRequest);
 
-        return essaysBD.map(EssayDTO::new);
+        return essaysBD.map(EssayFindAllDTO::new);
     }
 
     @Transactional(readOnly = true)
     public EssayDTO findEssayById(Long id) {
 
+        User user = authService.authenticated();
+
         Optional<Essay> essayBD = this.essayRepository.findById(id);
 
         Essay essay = essayBD.orElseThrow(() -> new ResourceNotFoundException("Essay not found"));
 
-        return new EssayDTO(essay);
+        boolean hasUserVoted = essay.getUserUpVotes().contains(user);
+
+        return new EssayDTO(essay, hasUserVoted);
     }
 
     @Transactional(readOnly = true)
@@ -60,7 +64,29 @@ public class EssayService {
         User user = obj.orElseThrow(() -> new ResourceNotFoundException("User not found, id: " + id));
         List<Essay> essays = essayRepository.find(user);
 
-        return essays.stream().map(EssayDTO::new).collect(Collectors.toList());
+        List<Boolean> userHasUpVotedEssays = checkIfUserUpVotedEssays(user, essays);
+
+        return fillEssayDTO(userHasUpVotedEssays, essays);
+    }
+
+    private List<EssayDTO> fillEssayDTO( List<Boolean> userHasUpVotedEssays, List<Essay> essays) {
+        List<EssayDTO> essaysDTO = new ArrayList<>();
+
+        for (int i = 0; i < essays.size(); i++){
+            EssayDTO essayDTO = new EssayDTO(essays.get(i),userHasUpVotedEssays.get(i));
+            essaysDTO.add(essayDTO);
+        }
+        return essaysDTO;
+    }
+
+    private List<Boolean> checkIfUserUpVotedEssays(User user, List<Essay> essays) {
+        List<Boolean> usersHasUpVotedEssays = new ArrayList<>();
+
+        for (Essay e: essays) {
+            usersHasUpVotedEssays.add(e.getUserUpVotes().contains(user));
+        }
+
+        return usersHasUpVotedEssays;
     }
 
     public void deleteEssayById(Long id) {
@@ -88,7 +114,7 @@ public class EssayService {
 
         essay = this.essayRepository.save(essay);
 
-        return new EssayDTO(essay);
+        return new EssayDTO(essay, false);
     }
 
     private Essay mapsEssayInsertDTOtoEssay(EssayInsertDTO essayInsertDTO){
@@ -160,7 +186,7 @@ public class EssayService {
                 throw new ResourceNotFoundException("Only the User I create can update");
             }
 
-            return new EssayDTO(essay);
+            return new EssayDTO(essay, false);
 
     }
 
