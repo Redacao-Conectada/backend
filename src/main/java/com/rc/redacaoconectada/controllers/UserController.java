@@ -57,9 +57,9 @@ public class UserController {
     return ResponseEntity.ok().body(userEssayDTO);
   }
   
-  @PutMapping("/update")
-  public ResponseEntity<UserDTO> updateUser(@Valid @RequestBody UserChangeDTO newUser) {
-    return new ResponseEntity<>(service.updateUser(newUser), HttpStatus.OK);
+  @PutMapping("/{id}")
+  public ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @RequestBody UserChangeDTO newUser) {
+    return new ResponseEntity<>(service.updateUser(id, newUser), HttpStatus.OK);
   }
 
   @DeleteMapping(value = "/comment/{id}")
