@@ -87,4 +87,15 @@ public class UserController {
             .buildAndExpand(request.getIdUser()).toUri();
     return ResponseEntity.created(uri).body(dto);
   }
+
+  @GetMapping("/changeRole")
+  public ResponseEntity<Page<UserChangeRoleDTO>> findAllChangeRoleRequests(@RequestParam(value = "page", defaultValue = "0") Integer page,
+                                                                     @RequestParam(value = "changeRolePerPage", defaultValue = "12") Integer changeRolePerPage,
+                                                                     @RequestParam(value = "direction", defaultValue = "ASC") String direction,
+                                                                     @RequestParam(value = "orderBy", defaultValue = "id") String id) {
+    PageRequest pageRequest = PageRequest.of(page, changeRolePerPage, Sort.Direction.valueOf(direction), id);
+    Page<UserChangeRoleDTO> changeRoleDTO = changeRoleService.findAll(pageRequest);
+
+    return ResponseEntity.ok().body(changeRoleDTO);
+  }
 }
