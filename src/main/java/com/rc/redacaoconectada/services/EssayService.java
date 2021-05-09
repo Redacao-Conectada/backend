@@ -103,6 +103,7 @@ public class EssayService {
         essay.setUpVote(0);
         essay.setTitle(essayInsertDTO.getTitle());
         essay.setBody(essayInsertDTO.getBody());
+        essay.setIsAnon(essayInsertDTO.getIsAnon());
 
         return essay;
     }
