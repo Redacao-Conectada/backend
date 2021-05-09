@@ -190,4 +190,14 @@ public class EssayService {
 
         return queryResult;
     }
+
+    public EssayDTO getEssayForCorrection() {
+
+        User user = authService.authenticated();
+
+        Optional<Essay> essayBD = this.essayRepository.findByCorrectionId();
+        Essay essay = essayBD.orElseThrow(() -> new ResourceNotFoundException("Essay not found"));
+
+        return new EssayDTO(essay, user);
+    }
 }

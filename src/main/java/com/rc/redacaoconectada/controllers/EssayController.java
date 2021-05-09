@@ -4,6 +4,7 @@ import com.rc.redacaoconectada.dtos.EssayCommentDTO;
 import com.rc.redacaoconectada.dtos.EssayDTO;
 import com.rc.redacaoconectada.dtos.EssayInsertDTO;
 import com.rc.redacaoconectada.dtos.EssayFindAllDTO;
+import com.rc.redacaoconectada.entities.Essay;
 import com.rc.redacaoconectada.services.EssayService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -97,6 +98,14 @@ public class EssayController {
         EssayDTO dto = service.update(id, essayInsertDTO);
 
         return ResponseEntity.ok().body(dto);
+    }
+
+    @GetMapping(value = "/correction")
+    public ResponseEntity<EssayDTO> getEssayForCorreciontio(){
+
+        EssayDTO essayDTO = service.getEssayForCorrection();
+
+        return ResponseEntity.ok().body(essayDTO);
     }
 
 }
