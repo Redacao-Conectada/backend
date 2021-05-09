@@ -195,9 +195,15 @@ public class EssayService {
 
         User user = authService.authenticated();
 
-        Optional<Essay> essayBD = this.essayRepository.findByCorrectionId();
-        Essay essay = essayBD.orElseThrow(() -> new ResourceNotFoundException("Essay not found"));
+        List<Essay> essays = this.essayRepository.findByCorrectionId();
+        if (essays.isEmpty()){
+            throw new ResourceNotFoundException("Não há redações a serem corrigidas");
+        }
 
-        return new EssayDTO(essay, user);
+        Random rand = new Random();
+
+        int randInt = rand.nextInt(essays.size());
+
+        return new EssayDTO(essays.get(randInt), user);
     }
 }
