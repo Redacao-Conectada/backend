@@ -26,6 +26,9 @@ public class ChangeRoleService {
     @Autowired
     private RoleRepository roleRepository;
 
+    @Autowired
+    private AuthService authService;
+
     @Transactional
     public UserChangeRoleDTO requestChangeRole(UserChangeRoleInsertDTO requestChangeRole) {
         ChangeRoleRequest changeRoleRequest = new ChangeRoleRequest();
@@ -109,8 +112,31 @@ public class ChangeRoleService {
     }
 
     public Page<UserChangeRoleDTO> findAll(PageRequest pageRequest) {
+        User user = authService.authenticated();
+
+        checkIfUserIsAdmin(user);
+
         Page<ChangeRoleRequest> changeRoleBD = this.changeRoleRequestRepository.findAll(pageRequest);
 
         return changeRoleBD.map(UserChangeRoleDTO::new);
+    }
+
+    private void checkIfUserIsAdmin(User user) {
+        if (user == null){
+            throw new ResourceNotFoundException("User not found");
+        }
+        boolean checkRoleAdmin = false;
+        try {
+            for (Role r: user.getRoles()){
+                if (r.getAuthority().equals("ROLE_ADMIN")){
+                    checkRoleAdmin = true;
+                }
+            }
+        }catch(NullPointerException npe){
+            throw new ResourceNotFoundException("User doesn't have role");
+        }
+        if (!checkRoleAdmin){
+            throw new ResourceNotFoundException("User doesn't have permission");
+        }
     }
 }
