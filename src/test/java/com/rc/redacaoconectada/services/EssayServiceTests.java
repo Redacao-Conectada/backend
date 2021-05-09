@@ -2,7 +2,9 @@ package com.rc.redacaoconectada.services;
 
 import com.rc.redacaoconectada.dtos.EssayDTO;
 import com.rc.redacaoconectada.entities.Essay;
+import com.rc.redacaoconectada.entities.User;
 import com.rc.redacaoconectada.factory.EssayFactory;
+import com.rc.redacaoconectada.factory.UserFactory;
 import com.rc.redacaoconectada.repositories.EssayRepository;
 import com.rc.redacaoconectada.services.exceptions.ResourceNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,28 +30,14 @@ public class EssayServiceTests {
 
     private Essay existingEssay;
 
+    private User existingUser;
+
     @BeforeEach
     void setUp() throws Exception {
         existingEssay = EssayFactory.createEssay();
 
+        existingUser = UserFactory.createUser();
+
         when(repository.findById(existingEssay.getId())).thenReturn(Optional.of(existingEssay));
     }
-
-    @Test
-    void loadEssayByIdShouldReturnWhenThereIsId() {
-        EssayDTO essayBD = service.findEssayById(existingEssay.getId());
-
-        Essay essay = existingEssay;
-
-        EssayDTO essayDTO = new EssayDTO(essay);
-
-        assertNotNull(essayBD);
-        assertEquals(essayDTO, essayBD);
-    }
-
-    @Test
-    void loadEssayByIdShouldThrowResourceNotFoundExceptionWhenEssayDoesNotExists() {
-        assertThrows(ResourceNotFoundException.class, () -> service.findEssayById(5L));
-    }
-
 }
