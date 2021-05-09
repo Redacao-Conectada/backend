@@ -10,7 +10,7 @@ import java.time.Instant;
 
 @Data
 @NoArgsConstructor
-public class EssayDTO implements Serializable {
+public class EssayFindAllDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private Long id;
@@ -39,10 +39,10 @@ public class EssayDTO implements Serializable {
 
     private Integer totalComments;
 
-    private boolean hasUserUpVoted;
+    private boolean hasUserVoted;
 
 
-    public EssayDTO(Essay essay, User user) {
+    public EssayFindAllDTO(Essay essay) {
         this.id = essay.getId();
         this.title = essay.getTitle();
         this.author = essay.getUser().getId();
@@ -54,12 +54,7 @@ public class EssayDTO implements Serializable {
         this.createdAt = essay.getCreatedAt();
         this.totalUpVote = essay.getQuantityUpVotes();
         this.totalComments = essay.getQuantityComments();
-        this.hasUserUpVoted = hasUserUpVotedVerify(essay, user);
         correctionVerify(essay);
-    }
-
-    private boolean hasUserUpVotedVerify(Essay e, User u) {
-        return e.getUserUpVotes().contains(u);
     }
 
     private void correctionVerify(Essay essay){

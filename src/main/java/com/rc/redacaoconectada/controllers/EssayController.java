@@ -3,6 +3,7 @@ package com.rc.redacaoconectada.controllers;
 import com.rc.redacaoconectada.dtos.EssayCommentDTO;
 import com.rc.redacaoconectada.dtos.EssayDTO;
 import com.rc.redacaoconectada.dtos.EssayInsertDTO;
+import com.rc.redacaoconectada.dtos.EssayFindAllDTO;
 import com.rc.redacaoconectada.services.EssayService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,9 +26,9 @@ public class EssayController {
 
     @GetMapping
     public ResponseEntity<Page<EssayDTO>> findAll(@RequestParam(value = "page", defaultValue = "0") Integer page,
-                                                  @RequestParam(value = "essayPerPage", defaultValue = "12") Integer essayPerPage,
-                                                  @RequestParam(value = "direction", defaultValue = "ASC") String direction,
-                                                  @RequestParam(value = "orderBy", defaultValue = "id") String id) {
+                                                         @RequestParam(value = "essayPerPage", defaultValue = "12") Integer essayPerPage,
+                                                         @RequestParam(value = "direction", defaultValue = "ASC") String direction,
+                                                         @RequestParam(value = "orderBy", defaultValue = "id") String id) {
 
         PageRequest pageRequest = PageRequest.of(page, essayPerPage, Sort.Direction.valueOf(direction), id);
         Page<EssayDTO> essaydto = service.findAll(pageRequest);
