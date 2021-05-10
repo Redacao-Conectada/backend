@@ -1,6 +1,7 @@
 package com.rc.redacaoconectada.controllers;
 
 import com.rc.redacaoconectada.dtos.ChangeRoleDTO;
+import com.rc.redacaoconectada.dtos.ChangeRoleUserDTO;
 import com.rc.redacaoconectada.dtos.UserDTO;
 import com.rc.redacaoconectada.entities.ChangeRoleRequest;
 import com.rc.redacaoconectada.entities.User;
@@ -46,6 +47,14 @@ public class AdmController {
         Page<ChangeRoleDTO> list = changeRoleService.findAllPagedChangeRoleRequest(pageRequest);
         return ResponseEntity.ok().body(list);
 
+    }
+
+    @GetMapping("/users/requests/{id}")
+    public ResponseEntity<ChangeRoleUserDTO>findRequestByID(@PathVariable("id") Long id){
+
+        ChangeRoleUserDTO changeRoleDTO = changeRoleService.findRequestById(id);
+
+        return ResponseEntity.ok().body(changeRoleDTO);
     }
 
     @GetMapping(value = "/{id}")
