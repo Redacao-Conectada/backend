@@ -95,7 +95,10 @@ public class User implements Serializable, UserDetails {
   public boolean isEnabled() {
     return true;
   }
-
+  
+  public void addRole(Role role){
+    this.roles.add(role);
+  }
   @Override
   public String toString() {
     return "User{" +
