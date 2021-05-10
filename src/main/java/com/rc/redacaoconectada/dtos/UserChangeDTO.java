@@ -10,5 +10,14 @@ import lombok.NoArgsConstructor;
 public class UserChangeDTO {
 
     private String newUserName;
+
+    private String newGraduation;
+
+    private String newSchoolName;
+
+    private String newState;
+
+    private String newCity;
+
     private String image;
 }
