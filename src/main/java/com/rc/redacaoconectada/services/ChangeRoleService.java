@@ -55,12 +55,11 @@ public class ChangeRoleService {
         User user = obj.orElseThrow(() -> new ResourceNotFoundException("User Not Found!"));
         for(ChangeRoleRequest c : changeRoleRequestRepository.findAll()) {
             if (c.getUser().equals(user)) {
-                Teacher teacher = new Teacher();
-                userToTeacherConverter(user, teacher, c);
+                Role role = roleRepository.findByAuthority("ROLE_TEACHER");
+                user.addRole(role);
                 changeRoleRequestRepository.delete(c);
-                userRepository.save(teacher);
-                //userRepository.delete(user);
-                return new UserDTO(teacher);
+                userRepository.save(user);
+                return new UserDTO(user);
 
             }
         }
