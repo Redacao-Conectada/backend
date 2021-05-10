@@ -103,9 +103,27 @@ public class UserService implements UserDetailsService {
       throw new ResourceNotFoundException("User not found: " + id);
     });
 
-    user.setName(newUser.getNewUserName());
-    user.setImage(newUser.getImage());
+    if (newUser.getNewUserName() != null) {
+      user.setName(newUser.getNewUserName());
+    }
+    if (newUser.getImage() != null) {
+      user.setImage(newUser.getImage());
+    }
+    if (newUser.getNewCity() != null) {
+      user.setCity(newUser.getNewCity());
+    }
+    if (newUser.getNewState() != null) {
+      user.setState(newUser.getNewState());
+    }
+    if (newUser.getNewSchoolName() != null) {
+      user.setSchoolName(newUser.getNewSchoolName());
+    }
+    if (newUser.getNewGraduation() != null) {
+      user.setGraduation(newUser.getNewGraduation());
+    }
+
     user = repository.save(user);
+
     return new UserDTO(user);
   }
 }
