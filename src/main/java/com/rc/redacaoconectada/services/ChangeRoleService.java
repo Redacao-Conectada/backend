@@ -139,4 +139,12 @@ public class ChangeRoleService {
             throw new ResourceNotFoundException("User doesn't have permission");
         }
     }
+
+    public ChangeRoleUserDTO findRequestById(Long id) {
+        Optional<ChangeRoleRequest> changeRoleRequestBD = changeRoleRequestRepository.findById(id);
+
+        ChangeRoleRequest changeRoleRequest = changeRoleRequestBD.orElseThrow(() -> new ResourceNotFoundException("Change Role Not Found!"));
+
+        return new ChangeRoleUserDTO(changeRoleRequest);
+    }
 }
