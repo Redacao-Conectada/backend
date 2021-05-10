@@ -3,8 +3,7 @@ package com.rc.redacaoconectada.controllers;
 import com.rc.redacaoconectada.dtos.EssayCommentDTO;
 import com.rc.redacaoconectada.dtos.EssayDTO;
 import com.rc.redacaoconectada.dtos.EssayInsertDTO;
-import com.rc.redacaoconectada.dtos.EssayFindAllDTO;
-import com.rc.redacaoconectada.entities.Essay;
+
 import com.rc.redacaoconectada.services.EssayService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
