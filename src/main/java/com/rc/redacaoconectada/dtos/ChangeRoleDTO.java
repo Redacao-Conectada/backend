@@ -24,6 +24,8 @@ public class ChangeRoleDTO implements Serializable {
     @NotBlank(message = "proof_img requerido")
     private String proof_img;
 
+    private String user_name;
+
     private Long userId;
 
     public ChangeRoleDTO(ChangeRoleRequest changeRoleRequest) {
@@ -31,6 +33,7 @@ public class ChangeRoleDTO implements Serializable {
         this.school_registration = changeRoleRequest.getSchool_registration();
         this.school_name_as_teacher = changeRoleRequest.getSchool_name_as_teacher();
         this.proof_img = changeRoleRequest.getProof_img();
+        this.user_name = changeRoleRequest.getUser().getName();
         this.userId = changeRoleRequest.getUser().getId();
     }
 }
