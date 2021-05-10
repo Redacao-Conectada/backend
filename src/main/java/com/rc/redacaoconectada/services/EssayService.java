@@ -189,4 +189,20 @@ public class EssayService {
 
         return queryResult;
     }
+
+    public EssayDTO getEssayForCorrection() {
+
+        User user = authService.authenticated();
+
+        List<Essay> essays = this.essayRepository.findByCorrectionId();
+        if (essays.isEmpty()){
+            throw new ResourceNotFoundException("Não há redações a serem corrigidas");
+        }
+
+        Random rand = new Random();
+
+        int randInt = rand.nextInt(essays.size());
+
+        return new EssayDTO(essays.get(randInt), user);
+    }
 }
